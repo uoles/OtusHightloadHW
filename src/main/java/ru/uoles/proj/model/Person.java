@@ -2,6 +2,13 @@ package ru.uoles.proj.model;
 
 import lombok.Data;
 
+/**
+ * OtusHightloadHW
+ * Created by IntelliJ IDEA.
+ * Developer: Maksim Kulikov
+ * Date: 29.03.2022
+ * Time: 22:00
+ */
 @Data
 public class Person {
 
