@@ -7,5 +7,7 @@ package ru.uoles.proj.service;
  * Date: 29.03.2022
  * Time: 22:00
  */
-public interface PersonProcessService<Person> {
+public interface PersonManageService<Person> {
+
+    Person findById(final Long id);
 }

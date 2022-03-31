@@ -8,4 +8,6 @@ package ru.uoles.proj.database;
  * Time: 22:00
  */
 public interface PersonDao<Person> {
+
+    Person findById(final Long id);
 }
