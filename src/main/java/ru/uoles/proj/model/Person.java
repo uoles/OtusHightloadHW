@@ -20,8 +20,7 @@ public class Person {
     private int permissionsId;
     private String firstName;
     private String secondName;
-    private String login;
-    private String secret;
+    private String nickName;
     private String info;
     private int age;
     private String gender;
@@ -30,25 +29,14 @@ public class Person {
     public Person() {
     }
 
-    public Person(String firstName, String secondName, String login, String info, int age, String gender, String town) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.login = login;
-        this.info = info;
-        this.age = age;
-        this.gender = gender;
-        this.town = town;
-    }
-
-    public Person(Long id, Date registrationDate, Date dissolutionDate, int permissionsId, String firstName, String secondName, String login, String secret, String info, int age, String gender, String town) {
+    public Person(Long id, Date registrationDate, Date dissolutionDate, int permissionsId, String firstName, String secondName, String nickName, String info, int age, String gender, String town) {
         this.id = id;
         this.registrationDate = registrationDate;
         this.dissolutionDate = dissolutionDate;
         this.permissionsId = permissionsId;
         this.firstName = firstName;
         this.secondName = secondName;
-        this.login = login;
-        this.secret = secret;
+        this.nickName = nickName;
         this.info = info;
         this.age = age;
         this.gender = gender;

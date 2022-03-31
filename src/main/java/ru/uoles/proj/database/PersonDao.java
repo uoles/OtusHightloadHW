@@ -10,4 +10,6 @@ package ru.uoles.proj.database;
 public interface PersonDao<Person> {
 
     Person findById(final Long id);
+
+    void add(final Person person);
 }
