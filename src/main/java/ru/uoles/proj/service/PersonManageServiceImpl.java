@@ -25,20 +25,8 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     }
 
     @Override
-    public String addPerson(final String guid, final String firstName, final String secondName, final String nickName,
-                            final String info, final int age, final String gender, final String town
-    ) {
-        Person person = new Person();
-        person.setGuid(guid);
-        person.setFirstName(firstName);
-        person.setSecondName(secondName);
-        person.setNickName(nickName);
-        person.setInfo(info);
-        person.setAge(age);
-        person.setGender(gender);
-        person.setTown(town);
-
+    public String addPerson(final Person person) {
         personDao.addPerson(person);
-        return guid;
+        return person.getGuid();
     }
 }

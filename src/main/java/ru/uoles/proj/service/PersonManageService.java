@@ -11,7 +11,5 @@ public interface PersonManageService<Person> {
 
     Person findByGuid(final String guid);
 
-    String addPerson(final String guid, final String firstName, final String secondName, final String nickName,
-                     final String info, final int age, final String gender, final String town
-    );
+    String addPerson(final Person person);
 }

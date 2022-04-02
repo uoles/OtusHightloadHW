@@ -21,7 +21,7 @@ import java.util.Objects;
  */
 @Controller
 @RequiredArgsConstructor
-public class AuthorizationController {
+public class AccessController {
 
     private final AuthorizationManageService<Authorization> authorizationManageService;
 
@@ -43,6 +43,28 @@ public class AuthorizationController {
             authorization.setError("Authorization error");
             model.addAttribute("authorization", authorization);
             modelAndView = new ModelAndView("authorization", model);
+        }
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/registration")
+    public String registration(@ModelAttribute Authorization authorization, final ModelMap model) {
+        model.addAttribute("authorization", new Authorization());
+        return "registration";
+    }
+
+    @PostMapping(value = "/registration/new")
+    public ModelAndView registrationNewPerson(@ModelAttribute Authorization authorization, final ModelMap model) {
+        final String personGuid = authorizationManageService.registration(authorization);
+
+        ModelAndView modelAndView = null;
+        if (Objects.nonNull(personGuid)) {
+            model.addAttribute("guid", personGuid);
+            modelAndView  = new ModelAndView("redirect:/person", model);
+        } else {
+            authorization.setError("Registration error");
+            model.addAttribute("authorization", authorization);
+            modelAndView = new ModelAndView("registration", model);
         }
         return modelAndView;
     }

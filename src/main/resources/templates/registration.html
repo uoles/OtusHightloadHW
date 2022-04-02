@@ -5,29 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title>Authorization</title>
+    <title>Registration</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 </head>
 <body>
 
-<h1>Authorization</h1>
+<h1>New user registration</h1>
 
-<form action="#" th:action="@{/authorization}" th:object="${authorization}" method="post">
+<form action="#" th:action="@{/registration/new}" th:object="${authorization}" method="post">
     <p>Login: <input type="text" th:field="*{login}" /></p>
     <p>Password: <input type="text" th:field="*{password}" /></p>
     <p>
-        <input type="submit" value="Sign in" class="button"/>
+        <input type="submit" value="Registration" class="button"/>
     </p>
 
     <span th:text="*{error}"></span>
 <!--    <span th:text="*{#strings.isEmpty(error)} ? '' : *{error}"></span>-->
-</form>
-
-<form action="#" th:action="@{/registration}" th:object="${authorization}" method="post">
-    <p>
-        <input type="submit" value="Registration" class="button"/>
-    </p>
 </form>
 
 </body>

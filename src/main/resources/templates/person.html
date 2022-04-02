@@ -11,16 +11,9 @@
 </head>
 <body>
 
-<form method="get">
-    <p>
-        <input type="submit" value="Persons list" class="button"/>
-    </p>
-</form>
-
 <h1>Person detail:</h1>
 
 <form action="#" th:object="${person}" method="post">
-    <p>Id: <input type="text" th:field="*{id}" readonly /></p>
     <p>Nickname: <input type="text" th:field="*{nickName}" /></p>
     <p>First name: <input type="text" th:field="*{firstName}" /></p>
     <p>Second name: <input type="text" th:field="*{secondName}" /></p>
@@ -29,7 +22,7 @@
     <p>Town: <input type="text" th:field="*{town}" /></p>
     <p>Info: <input type="text" th:field="*{info}" /></p>
     <p>
-        <input type="submit" value="Update" class="button"/>
+        <input type="submit" value="Save" class="button"/>
     </p>
 </form>
 

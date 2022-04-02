@@ -31,6 +31,16 @@ public class PersonCommands {
                             @ShellOption String nickName, @ShellOption String info, @ShellOption int age,
                             @ShellOption String gender, @ShellOption String town
     ) {
-        return personManageService.addPerson(guid, firstName, secondName, nickName, info, age, gender, town);
+        Person person = new Person();
+        person.setGuid(guid);
+        person.setFirstName(firstName);
+        person.setSecondName(secondName);
+        person.setNickName(nickName);
+        person.setInfo(info);
+        person.setAge(age);
+        person.setGender(gender);
+        person.setTown(town);
+
+        return personManageService.addPerson(person);
     }
 }
