@@ -11,5 +11,5 @@ public interface AuthorizationManageService<Authorization> {
 
     String authorization(final Authorization authorization);
 
-    Long add(final Authorization authorization);
+    String registration(final Authorization authorization);
 }

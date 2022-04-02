@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.uoles.proj.database.PersonAccessDao;
 import ru.uoles.proj.model.Authorization;
+import ru.uoles.proj.model.Person;
 import ru.uoles.proj.model.PersonAccess;
+import ru.uoles.proj.utils.DatabaseHelper;
 import ru.uoles.proj.utils.SecureHelper;
 
 import java.security.NoSuchAlgorithmException;
@@ -55,7 +57,25 @@ public class AuthorizationManageServiceImpl implements AuthorizationManageServic
     }
 
     @Override
-    public Long add(final Authorization authorization) {
-        return null;
+    public String registration(final Authorization authorization) {
+        String newPersonGuid = null;
+        try {
+            PersonAccess personExists = personAccessDao.findByLogin(authorization.getLogin());
+            if (Objects.isNull(personExists)) {
+                newPersonGuid = DatabaseHelper.getNewGUID();
+
+                byte[] saltByteArray = SecureHelper.generateSalt();
+                byte[] secretByteArray = SecureHelper.getEncryptedPassword(authorization.getPassword(), saltByteArray);
+
+                PersonAccess access = new PersonAccess(
+                        newPersonGuid, authorization.getLogin(), secretByteArray, saltByteArray
+                );
+
+                personAccessDao.addCredentials(access);
+            }
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            logger.error("Error: exception generate new password and salt for new person! Login '{}'", authorization.getLogin(), e);
+        }
+        return newPersonGuid;
     }
 }

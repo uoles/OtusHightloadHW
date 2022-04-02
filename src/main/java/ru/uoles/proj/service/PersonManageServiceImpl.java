@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.uoles.proj.database.PersonDao;
 import ru.uoles.proj.model.Person;
+import ru.uoles.proj.utils.DatabaseHelper;
 
 import java.util.UUID;
+
+import static ru.uoles.proj.utils.DatabaseHelper.getNewGUID;
 
 /**
  * OtusHightloadHW
@@ -29,7 +32,7 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     public String addPerson(final String firstName, final String secondName, final String nickName, final String info,
                           final int age, final String gender, final String town
     ) {
-        final String guid = UUID.randomUUID().toString().replaceAll("-", "");
+        final String guid = DatabaseHelper.getNewGUID();
 
         Person person = new Person();
         person.setGuid(guid);

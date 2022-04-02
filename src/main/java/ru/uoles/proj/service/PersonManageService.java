@@ -1,7 +1,5 @@
 package ru.uoles.proj.service;
 
-import org.springframework.shell.standard.ShellOption;
-
 /**
  * OtusHightloadHW
  * Created by IntelliJ IDEA.

@@ -1,7 +1,6 @@
 package ru.uoles.proj.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +32,7 @@ public class AuthorizationController {
     }
 
     @PostMapping(value = "/authorization")
-    public ModelAndView signin(@ModelAttribute Authorization authorization, final ModelMap model) {
+    public ModelAndView authorization(@ModelAttribute Authorization authorization, final ModelMap model) {
         final String personGuid = authorizationManageService.authorization(authorization);
 
         ModelAndView modelAndView = null;

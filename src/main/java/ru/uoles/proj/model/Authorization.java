@@ -21,6 +21,11 @@ public class Authorization {
     public Authorization() {
     }
 
+    public Authorization(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
     public Authorization(String login, String password, String error) {
         this.login = login;
         this.password = password;

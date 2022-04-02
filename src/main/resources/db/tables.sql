@@ -1,6 +1,7 @@
 use mooncake_db;
 
 CREATE TABLE PERSON (
+    id int NOT NULL AUTO_INCREMENT,
     guid varchar(32) NOT NULL,
     registration_date datetime NOT NULL,
     dissolution_date datetime,
@@ -13,8 +14,8 @@ CREATE TABLE PERSON (
     gender varchar(15) NOT NULL,
     town varchar(15),
 
-    PRIMARY KEY (guid)
-) DEFAULT CHARSET=utf8 COMMENT='Список пользователей';
+    PRIMARY KEY (id)
+) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='Список пользователей';
 
 CREATE TABLE PERSON_ACCESS (
     id int NOT NULL AUTO_INCREMENT,

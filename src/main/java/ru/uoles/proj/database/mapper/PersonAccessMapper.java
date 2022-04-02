@@ -17,12 +17,14 @@ import java.sql.SQLException;
 public class PersonAccessMapper  implements RowMapper<PersonAccess> {
 
     private static final String PERSON_GUID = "person_guid";
+    private static final String LOGIN = "login";
     private static final String SECRET = "secret";
     private static final String SALT = "salt";
 
     @Override
     public PersonAccess mapRow(ResultSet rs, int rowNum) throws SQLException {
         final String personGuid = rs.getString(PERSON_GUID);
+        final String login = rs.getString(LOGIN);
 
         final Blob secret = rs.getBlob(SECRET);
         byte[] secretByteArray = null;
@@ -42,6 +44,6 @@ public class PersonAccessMapper  implements RowMapper<PersonAccess> {
             salt.free();
         }
 
-        return new PersonAccess(personGuid, secretByteArray, saltByteArray);
+        return new PersonAccess(personGuid, login, secretByteArray, saltByteArray);
     }
 }

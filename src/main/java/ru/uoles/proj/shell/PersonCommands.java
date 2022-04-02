@@ -20,8 +20,8 @@ public class PersonCommands {
 
     private final PersonManageService<Person> personManageService;
 
-    @ShellMethod(key = {"getPersonById"}, value = "Select person by id")
-    public String getPersonById(@ShellOption String guid) {
+    @ShellMethod(key = {"findByGuid"}, value = "Select person by guid")
+    public String findByGuid(@ShellOption String guid) {
         Person person = personManageService.findByGuid(guid);
         return person.toString();
     }
