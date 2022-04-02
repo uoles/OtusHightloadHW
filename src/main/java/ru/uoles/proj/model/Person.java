@@ -1,6 +1,7 @@
 package ru.uoles.proj.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  * Time: 22:00
  */
 @Data
+@ToString
 public class Person {
 
     private Long id;

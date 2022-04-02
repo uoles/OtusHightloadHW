@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Person detail</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+</head>
+<body>
+
+<form method="get">
+    <p>
+        <input type="submit" value="Persons list" class="button"/>
+    </p>
+</form>
+
+<h1>Person detail:</h1>
+
+<form action="#" th:object="${person}" method="post">
+    <p>Id: <input type="text" th:field="*{id}" readonly /></p>
+    <p>Nickname: <input type="text" th:field="*{nickName}" /></p>
+    <p>First name: <input type="text" th:field="*{firstName}" /></p>
+    <p>Second name: <input type="text" th:field="*{secondName}" /></p>
+    <p>Age: <input type="text" th:field="*{age}" /></p>
+    <p>Gender: <input type="text" th:field="*{gender}" /></p>
+    <p>Town: <input type="text" th:field="*{town}" /></p>
+    <p>Info: <input type="text" th:field="*{info}" /></p>
+    <p>
+        <input type="submit" value="Update" class="button"/>
+    </p>
+</form>
+
+</body>
+</html>
