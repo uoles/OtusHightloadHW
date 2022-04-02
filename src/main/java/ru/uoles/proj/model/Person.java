@@ -16,7 +16,7 @@ import java.util.Date;
 @ToString
 public class Person {
 
-    private Long id;
+    private String guid;
     private Date registrationDate;
     private Date dissolutionDate;
     private int permissionsId;
@@ -31,8 +31,8 @@ public class Person {
     public Person() {
     }
 
-    public Person(Long id, Date registrationDate, Date dissolutionDate, int permissionsId, String firstName, String secondName, String nickName, String info, int age, String gender, String town) {
-        this.id = id;
+    public Person(String guid, Date registrationDate, Date dissolutionDate, int permissionsId, String firstName, String secondName, String nickName, String info, int age, String gender, String town) {
+        this.guid = guid;
         this.registrationDate = registrationDate;
         this.dissolutionDate = dissolutionDate;
         this.permissionsId = permissionsId;

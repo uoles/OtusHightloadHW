@@ -34,11 +34,11 @@ public class AuthorizationController {
 
     @PostMapping(value = "/authorization")
     public ModelAndView signin(@ModelAttribute Authorization authorization, final ModelMap model) {
-        final Long personId = authorizationManageService.authorization(authorization);
+        final String personGuid = authorizationManageService.authorization(authorization);
 
         ModelAndView modelAndView = null;
-        if (Objects.nonNull(personId)) {
-            model.addAttribute("id", personId);
+        if (Objects.nonNull(personGuid)) {
+            model.addAttribute("guid", personGuid);
             modelAndView  = new ModelAndView("redirect:/person", model);
         } else {
             authorization.setError("Authorization error");

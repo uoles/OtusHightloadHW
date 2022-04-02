@@ -9,7 +9,7 @@ package ru.uoles.proj.database;
  */
 public interface PersonDao<Person> {
 
-    Person findById(final Long id);
+    Person findByGuid(final String guid);
 
-    void add(final Person person);
+    void addPerson(final Person person);
 }

@@ -9,7 +9,7 @@ package ru.uoles.proj.service;
  */
 public interface AuthorizationManageService<Authorization> {
 
-    Long authorization(final Authorization authorization);
+    String authorization(final Authorization authorization);
 
     Long add(final Authorization authorization);
 }

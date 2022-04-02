@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class PersonMapper implements RowMapper<Person> {
 
-    private static final String ID = "id";
+    private static final String GUID = "guid";
     private static final String REGISTRATION_DATE = "registration_date";
     private static final String DISSOLUTION_DATE = "dissolution_date";
     private static final String PERMISSIONS_ID = "permissions_id";
@@ -30,7 +30,7 @@ public class PersonMapper implements RowMapper<Person> {
 
     @Override
     public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-        final Long id = rs.getLong(ID);
+        final String guid = rs.getString(GUID);
         final Date registrationDate = rs.getDate(REGISTRATION_DATE);
         final Date dissolutionDate = rs.getDate(DISSOLUTION_DATE);
         final int permissionsId = rs.getInt(PERMISSIONS_ID);
@@ -42,7 +42,7 @@ public class PersonMapper implements RowMapper<Person> {
         final String gender = rs.getString(GENDER);
         final String town = rs.getString(TOWN);
 
-        return new Person(id, registrationDate, dissolutionDate, permissionsId, firstName, secondName,
+        return new Person(guid, registrationDate, dissolutionDate, permissionsId, firstName, secondName,
                 nickName, info, age, gender, town
         );
     }

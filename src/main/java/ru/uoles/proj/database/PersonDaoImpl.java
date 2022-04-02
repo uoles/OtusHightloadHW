@@ -23,21 +23,21 @@ import java.util.Map;
 public class PersonDaoImpl implements PersonDao<Person> {
 
     private static final String FIND_BY_ID =
-            "select id, registration_date, dissolution_date, permissions_id, first_name, second_name, login, secret, info, age, gender, town " +
+            "select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town " +
                     " from Person " +
-                    " where id = :id";
+                    " where guid = :guid";
 
     private static final String ADD_PERSON =
-            "insert into Person(registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town) " +
-                    " values(NOW(), null, :permissions_id, :first_name, :second_name, :nick_name, :info, :age, :gender, :town)";
+            "insert into Person(guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town) " +
+                    " values(:guid, NOW(), null, 1, :first_name, :second_name, :nick_name, :info, :age, :gender, :town)";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Person findById(final Long id) {
+    public Person findByGuid(final String guid) {
         List<Person> result = namedParameterJdbcTemplate.query(
                 FIND_BY_ID,
-                idToParams(id),
+                guidToParams(guid),
                 new PersonMapper()
         );
 
@@ -47,21 +47,22 @@ public class PersonDaoImpl implements PersonDao<Person> {
     }
 
     @Override
-    public void add(final Person person) {
+    public void addPerson(final Person person) {
         namedParameterJdbcTemplate.update(
                 ADD_PERSON,
                 personToParams(person)
         );
     }
 
-    private Map<String, Object> idToParams(final Long id) {
+    private Map<String, Object> guidToParams(final String guid) {
         Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
+        params.put("guid", guid);
         return params;
     }
 
     private Map<String, Object> personToParams(final Person person) {
         Map<String, Object> params = new HashMap<>();
+        params.put("guid", person.getGuid());
         params.put("permissions_id", person.getPermissionsId());
         params.put("first_name", person.getFirstName());
         params.put("second_name", person.getSecondName());

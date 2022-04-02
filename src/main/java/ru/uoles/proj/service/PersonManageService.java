@@ -1,5 +1,7 @@
 package ru.uoles.proj.service;
 
+import org.springframework.shell.standard.ShellOption;
+
 /**
  * OtusHightloadHW
  * Created by IntelliJ IDEA.
@@ -9,5 +11,10 @@ package ru.uoles.proj.service;
  */
 public interface PersonManageService<Person> {
 
-    Person findById(final Long id);
+    Person findByGuid(final String guid);
+
+    String addPerson(final String firstName, final String secondName, final String nickName,
+                     final String info, final int age, final String gender,
+                     final String town
+    );
 }

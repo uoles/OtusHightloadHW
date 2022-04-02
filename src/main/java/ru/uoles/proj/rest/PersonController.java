@@ -22,8 +22,8 @@ public class PersonController {
     private final PersonManageService<Person> personManageService;
 
     @GetMapping("/person")
-    public String getById(@RequestParam("id") long id, final Model model) {
-        final Person person = personManageService.findById(id);
+    public String getById(@RequestParam("id") String guid, final Model model) {
+        final Person person = personManageService.findByGuid(guid);
         model.addAttribute("person", person);
         return "person";
     }

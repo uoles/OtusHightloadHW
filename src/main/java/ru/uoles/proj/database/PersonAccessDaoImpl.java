@@ -23,7 +23,7 @@ import java.util.Map;
 public class PersonAccessDaoImpl implements PersonAccessDao<PersonAccess> {
 
     private static final String FIND_BY_LOGIN =
-            "select person_id, secret, salt " +
+            "select person_guid, secret, salt " +
                     " from PersonAccess " +
                     " where login = :login and status = 1";
 

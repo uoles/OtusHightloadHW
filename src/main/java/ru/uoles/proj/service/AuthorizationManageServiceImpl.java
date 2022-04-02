@@ -29,8 +29,8 @@ public class AuthorizationManageServiceImpl implements AuthorizationManageServic
     private final PersonAccessDao<PersonAccess> personAccessDao;
 
     @Override
-    public Long authorization(final Authorization authorization) {
-        Long personId = null;
+    public String authorization(final Authorization authorization) {
+        String personId = null;
         try {
             PersonAccess personAccess = personAccessDao.findByLogin(authorization.getLogin());
             if (Objects.nonNull(personAccess)) {
@@ -41,7 +41,7 @@ public class AuthorizationManageServiceImpl implements AuthorizationManageServic
                 );
 
                 if (authenticate) {
-                    personId = personAccess.getPersonId();
+                    personId = personAccess.getPersonGuid();
                 } else {
                     logger.error("Error: bad password! Login '{}'", authorization.getLogin());
                 }

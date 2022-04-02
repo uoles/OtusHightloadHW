@@ -14,15 +14,15 @@ import lombok.ToString;
 @ToString
 public class PersonAccess {
 
-    private Long personId;
+    private String personGuid;
     private byte[] secretByteArray;
     private byte[] saltByteArray;
 
     public PersonAccess() {
     }
 
-    public PersonAccess(Long personId, byte[] secretByteArray, byte[] saltByteArray) {
-        this.personId = personId;
+    public PersonAccess(String personGuid, byte[] secretByteArray, byte[] saltByteArray) {
+        this.personGuid = personGuid;
         this.secretByteArray = secretByteArray;
         this.saltByteArray = saltByteArray;
     }
