@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.uoles.proj.database.PersonAccessDao;
 import ru.uoles.proj.model.Authorization;
-import ru.uoles.proj.model.Person;
 import ru.uoles.proj.model.PersonAccess;
 import ru.uoles.proj.utils.DatabaseHelper;
 import ru.uoles.proj.utils.SecureHelper;

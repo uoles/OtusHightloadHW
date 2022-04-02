@@ -27,10 +27,10 @@ public class PersonCommands {
     }
 
     @ShellMethod(key = {"addPerson"}, value = "Add new person")
-    public String addPerson(@ShellOption String firstName, @ShellOption String secondName, @ShellOption String nickName,
-                            @ShellOption String info, @ShellOption int age, @ShellOption String gender,
-                            @ShellOption String town
+    public String addPerson(@ShellOption String guid, @ShellOption String firstName, @ShellOption String secondName,
+                            @ShellOption String nickName, @ShellOption String info, @ShellOption int age,
+                            @ShellOption String gender, @ShellOption String town
     ) {
-        return personManageService.addPerson(firstName, secondName, nickName, info, age, gender, town);
+        return personManageService.addPerson(guid, firstName, secondName, nickName, info, age, gender, town);
     }
 }

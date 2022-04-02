@@ -5,9 +5,7 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import ru.uoles.proj.model.Authorization;
-import ru.uoles.proj.model.Person;
 import ru.uoles.proj.service.AuthorizationManageService;
-import ru.uoles.proj.service.PersonManageService;
 
 /**
  * OtusHightloadHW
@@ -22,7 +20,7 @@ public class AuthorizationCommands {
 
     private final AuthorizationManageService<Authorization> authorizationManageService;
 
-    @ShellMethod(key = {"signin"}, value = "Sign in persons")
+    @ShellMethod(key = {"authorization"}, value = "Sign in persons")
     public String authorization(@ShellOption String login, @ShellOption String password) {
         Authorization authorization = new Authorization(login, password);
         return authorizationManageService.authorization(authorization);
