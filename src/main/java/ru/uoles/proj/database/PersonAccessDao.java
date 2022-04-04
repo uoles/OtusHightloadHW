@@ -11,5 +11,5 @@ public interface PersonAccessDao<PersonAccess> {
 
     PersonAccess findByLogin(final String login);
 
-    void addCredentials(final PersonAccess personAccess);
+    void addPersonAccess(final PersonAccess personAccess);
 }

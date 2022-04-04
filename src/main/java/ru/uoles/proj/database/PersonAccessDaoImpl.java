@@ -53,7 +53,7 @@ public class PersonAccessDaoImpl implements PersonAccessDao<PersonAccess> {
     }
 
     @Override
-    public void addCredentials(final PersonAccess personAccess) {
+    public void addPersonAccess(final PersonAccess personAccess) {
         try {
             namedParameterJdbcTemplate.update(
                     ADD_NEW_CREDENTIALS,

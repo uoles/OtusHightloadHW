@@ -59,18 +59,18 @@ public class AuthorizationManageServiceImpl implements AuthorizationManageServic
     public String registration(final Authorization authorization) {
         String newPersonGuid = null;
         try {
-            PersonAccess personExists = personAccessDao.findByLogin(authorization.getLogin());
-            if (Objects.isNull(personExists)) {
+            PersonAccess existsPersonAccess = personAccessDao.findByLogin(authorization.getLogin());
+            if (Objects.isNull(existsPersonAccess)) {
                 newPersonGuid = DatabaseHelper.getNewGUID();
 
                 byte[] saltByteArray = SecureHelper.generateSalt();
                 byte[] secretByteArray = SecureHelper.getEncryptedPassword(authorization.getPassword(), saltByteArray);
 
-                PersonAccess access = new PersonAccess(
+                PersonAccess newPersonAccess = new PersonAccess(
                         newPersonGuid, authorization.getLogin(), secretByteArray, saltByteArray
                 );
 
-                personAccessDao.addCredentials(access);
+                personAccessDao.addPersonAccess(newPersonAccess);
             }
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             logger.error("Error: exception generate new password and salt for new person! Login '{}'", authorization.getLogin(), e);
