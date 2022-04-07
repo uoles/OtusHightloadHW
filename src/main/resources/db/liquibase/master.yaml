@@ -1,0 +1,17 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: uoles
+
+  - include:
+      file: ddl/TABLE.PERSON.sql
+      relativeToChangelogFile: true
+
+  - include:
+      file: ddl/TABLE.PERSON_ACCESS.sql
+      relativeToChangelogFile: true
+
+  - include:
+      file: dml/001_insert_data_employee.sql
+      relativeToChangelogFile: true

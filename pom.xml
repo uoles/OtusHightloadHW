@@ -7,6 +7,7 @@
     <groupId>ru.uoles.proj</groupId>
     <artifactId>mooncake-social</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -79,6 +80,8 @@
     </dependencies>
 
     <build>
+        <finalName>mooncake-social</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
