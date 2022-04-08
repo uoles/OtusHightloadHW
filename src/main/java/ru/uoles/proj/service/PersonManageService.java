@@ -11,5 +11,5 @@ public interface PersonManageService<Person> {
 
     Person findByGuid(final String guid);
 
-    String addPerson(final Person person);
+    Person updatePerson(final Person person);
 }

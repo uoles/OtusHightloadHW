@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.uoles.proj.database.PersonDao;
 import ru.uoles.proj.model.Person;
-import ru.uoles.proj.utils.DatabaseHelper;
+
+import java.util.Objects;
 
 /**
  * OtusHightloadHW
@@ -25,8 +26,13 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     }
 
     @Override
-    public String addPerson(final Person person) {
-        personDao.addPerson(person);
-        return person.getGuid();
+    public Person updatePerson(final Person person) {
+        Person existPerson = personDao.findByGuid(person.getGuid());
+        if (Objects.isNull(existPerson)) {
+            personDao.addPerson(person);
+        } else {
+            personDao.updatePerson(person);
+        }
+        return person;
     }
 }

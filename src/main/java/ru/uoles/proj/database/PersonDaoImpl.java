@@ -31,6 +31,8 @@ public class PersonDaoImpl implements PersonDao<Person> {
             "insert into Person(guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town) " +
                     " values(:guid, NOW(), null, 1, :first_name, :second_name, :nick_name, :info, :age, :gender, :town)";
 
+    private static final String UPDATE_PERSON = "";
+
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
@@ -50,6 +52,14 @@ public class PersonDaoImpl implements PersonDao<Person> {
     public void addPerson(final Person person) {
         namedParameterJdbcTemplate.update(
                 ADD_PERSON,
+                personToParams(person)
+        );
+    }
+
+    @Override
+    public void updatePerson(final Person person) {
+        namedParameterJdbcTemplate.update(
+                UPDATE_PERSON,
                 personToParams(person)
         );
     }

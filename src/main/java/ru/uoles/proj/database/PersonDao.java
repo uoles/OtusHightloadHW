@@ -12,4 +12,6 @@ public interface PersonDao<Person> {
     Person findByGuid(final String guid);
 
     void addPerson(final Person person);
+
+    void updatePerson(final Person person);
 }

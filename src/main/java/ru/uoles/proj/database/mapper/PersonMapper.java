@@ -43,7 +43,7 @@ public class PersonMapper implements RowMapper<Person> {
         final String town = rs.getString(TOWN);
 
         return new Person(guid, registrationDate, dissolutionDate, permissionsId, firstName, secondName,
-                nickName, info, age, gender, town
+                nickName, info, age, gender, town, null
         );
     }
 }

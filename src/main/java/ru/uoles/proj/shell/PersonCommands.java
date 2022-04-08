@@ -41,6 +41,6 @@ public class PersonCommands {
         person.setGender(gender);
         person.setTown(town);
 
-        return personManageService.addPerson(person);
+        return personManageService.updatePerson(person).toString();
     }
 }

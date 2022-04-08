@@ -27,11 +27,12 @@ public class Person {
     private int age;
     private String gender;
     private String town;
+    private String operation;
 
     public Person() {
     }
 
-    public Person(String guid, Date registrationDate, Date dissolutionDate, int permissionsId, String firstName, String secondName, String nickName, String info, int age, String gender, String town) {
+    public Person(String guid, Date registrationDate, Date dissolutionDate, int permissionsId, String firstName, String secondName, String nickName, String info, int age, String gender, String town, String operation) {
         this.guid = guid;
         this.registrationDate = registrationDate;
         this.dissolutionDate = dissolutionDate;
@@ -43,5 +44,6 @@ public class Person {
         this.age = age;
         this.gender = gender;
         this.town = town;
+        this.operation = operation;
     }
 }

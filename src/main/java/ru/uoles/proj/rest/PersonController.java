@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.uoles.proj.model.Authorization;
 import ru.uoles.proj.model.Person;
 import ru.uoles.proj.service.PersonManageService;
 
@@ -32,6 +31,9 @@ public class PersonController {
         if (Objects.isNull(person)) {
             person = new Person();
             person.setGuid(guid);
+            person.setOperation("Save");
+        } else {
+            person.setOperation("Update");
         }
         model.addAttribute("person", person);
 
@@ -40,8 +42,8 @@ public class PersonController {
 
     @PostMapping("/person")
     public String addPerson(@ModelAttribute Person person, final Model model) {
-        personManageService.addPerson(person);
-        model.addAttribute("person", person);
+        Person result = personManageService.updatePerson(person);
+        model.addAttribute("person", result);
         return "person";
     }
 }

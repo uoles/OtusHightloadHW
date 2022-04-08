@@ -13,5 +13,5 @@ databaseChangeLog:
       relativeToChangelogFile: true
 
   - include:
-      file: dml/001_insert_data_employee.sql
+      file: ddl/TABLE.PERSON_FRIENDS.sql
       relativeToChangelogFile: true
