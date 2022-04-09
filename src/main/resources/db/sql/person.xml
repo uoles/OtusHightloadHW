@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <comment>Application Configuration</comment>
+    <comment>SQL requests to table PERSON</comment>
 
     <entry key="find.by.guid">
         select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town
