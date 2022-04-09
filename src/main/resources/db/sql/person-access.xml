@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Application Configuration</comment>
+
+    <entry key="find.by.login">
+        select login, person_guid, secret, salt
+        from PERSON_ACCESS
+        where login = :login and status = 1
+    </entry>
+
+    <entry key="add.new.credentials">
+        insert into PERSON_ACCESS(person_guid, login, secret, salt, status)
+        values(:person_guid, :login, :secret, :salt, 1)
+    </entry>
+</properties>

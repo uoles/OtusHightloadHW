@@ -2,7 +2,7 @@ package ru.uoles.proj.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.uoles.proj.database.PersonDao;
+import ru.uoles.proj.database.dao.PersonDao;
 import ru.uoles.proj.model.Person;
 
 import java.util.Objects;

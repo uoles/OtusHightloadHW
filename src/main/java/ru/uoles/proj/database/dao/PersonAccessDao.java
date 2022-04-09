@@ -1,4 +1,4 @@
-package ru.uoles.proj.database;
+package ru.uoles.proj.database.dao;
 
 /**
  * OtusHightloadHW

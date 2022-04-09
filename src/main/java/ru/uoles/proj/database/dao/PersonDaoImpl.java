@@ -1,7 +1,9 @@
-package ru.uoles.proj.database;
+package ru.uoles.proj.database.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.uoles.proj.database.mapper.PersonMapper;
@@ -20,20 +22,19 @@ import java.util.Map;
  */
 @Repository
 @RequiredArgsConstructor
+@PropertySource(name="sqlPerson", value="classpath:/db/sql/person.xml")
 public class PersonDaoImpl implements PersonDao<Person> {
 
-    private static final String FIND_BY_ID =
-            "select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town " +
-                    " from Person " +
-                    " where guid = :guid";
-
-    private static final String ADD_PERSON =
-            "insert into Person(guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town) " +
-                    " values(:guid, NOW(), null, 1, :first_name, :second_name, :nick_name, :info, :age, :gender, :town)";
-
-    private static final String UPDATE_PERSON = "";
-
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Value("#{sqlPerson['find.by.id']}")
+    private final String FIND_BY_ID;
+
+    @Value("#{sqlPerson['add.person']}")
+    private final String ADD_PERSON;
+
+    @Value("#{sqlPerson['update.person']}")
+    private final String UPDATE_PERSON;
 
     @Override
     public Person findByGuid(final String guid) {

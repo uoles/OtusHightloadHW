@@ -1,9 +1,11 @@
-package ru.uoles.proj.database;
+package ru.uoles.proj.database.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.uoles.proj.database.mapper.PersonAccessMapper;
@@ -24,20 +26,17 @@ import java.util.Map;
  */
 @Repository
 @RequiredArgsConstructor
+@PropertySource(name="sqlPersonAccess", value="classpath:/db/sql/person-access.xml")
 public class PersonAccessDaoImpl implements PersonAccessDao<PersonAccess> {
 
     private final Logger logger = LoggerFactory.getLogger(PersonAccessDaoImpl.class);
-
-    private static final String FIND_BY_LOGIN =
-            "select login, person_guid, secret, salt " +
-                    " from PERSON_ACCESS " +
-                    " where login = :login and status = 1";
-
-    private static final String ADD_NEW_CREDENTIALS =
-            "insert into PERSON_ACCESS(person_guid, login, secret, salt, status) " +
-                    " values(:person_guid, :login, :secret, :salt, 1)";
-
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Value("#{sqlPersonAccess['find.by.login']}")
+    private final String FIND_BY_LOGIN;
+
+    @Value("#{sqlPersonAccess['add.new.credentials']}")
+    private final String ADD_NEW_CREDENTIALS;
 
     @Override
     public PersonAccess findByLogin(final String login) {

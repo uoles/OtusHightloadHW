@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import ru.uoles.proj.database.PersonAccessDao;
+import ru.uoles.proj.database.dao.PersonAccessDao;
 import ru.uoles.proj.model.Authorization;
 import ru.uoles.proj.model.PersonAccess;
 import ru.uoles.proj.utils.DatabaseHelper;
