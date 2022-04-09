@@ -33,8 +33,6 @@ public class PersonController {
             person = new Person();
             person.setGuid(guid);
             person.setOperation(PersonOperationType.SAVE.getCanonicalName());
-        } else {
-            person.setOperation(PersonOperationType.UPDATE.getCanonicalName());
         }
         model.addAttribute("person", person);
 

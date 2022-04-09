@@ -13,19 +13,20 @@
 
 <h1>Authorization</h1>
 
-<form action="#" th:action="@{/authorization}" th:object="${authorization}" method="post">
-    <p>Login: <input type="text" th:field="*{login}" /></p>
-    <p>Password: <input type="text" th:field="*{password}" /></p>
-    <p>
-        <input type="submit" value="Sign in" class="button"/>
-    </p>
-
-    <span th:text="*{error}"></span>
-</form>
-
 <form action="#" th:action="@{/registration}" th:object="${authorization}" method="post">
     <p>
         <input type="submit" value="Registration" class="button"/>
+    </p>
+</form>
+
+<form action="#" th:action="@{/authorization}" th:object="${authorization}" method="post">
+    <p>Login: <input type="text" th:field="*{login}" /></p>
+    <p>Password: <input type="text" th:field="*{password}" /></p>
+
+    <span th:text="*{error}"></span>
+
+    <p>
+        <input type="submit" value="Sign in" class="button"/>
     </p>
 </form>
 

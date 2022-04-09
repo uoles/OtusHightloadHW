@@ -2,6 +2,7 @@ package ru.uoles.proj.database.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import ru.uoles.proj.model.Person;
+import ru.uoles.proj.types.PersonOperationType;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +44,7 @@ public class PersonMapper implements RowMapper<Person> {
         final String town = rs.getString(TOWN);
 
         return new Person(guid, registrationDate, dissolutionDate, permissionsId, firstName, secondName,
-                nickName, info, age, gender, town, null
+                nickName, info, age, gender, town, PersonOperationType.UPDATE.getCanonicalName()
         );
     }
 }

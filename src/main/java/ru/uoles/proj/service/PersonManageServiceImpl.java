@@ -34,7 +34,6 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
         } else {
             personDao.updatePerson(person);
         }
-
         person.setOperation(PersonOperationType.UPDATE.getCanonicalName());
         return person;
     }
