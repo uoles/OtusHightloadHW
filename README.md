@@ -2,6 +2,8 @@
 Домашние задания по курсу Otus. Highload Architect.
 JDK: 11.
 
+URL для входа: http://localhost:8080/authorization
+
 ---
 ### Задание: 
 Заготовка для социальной сети.

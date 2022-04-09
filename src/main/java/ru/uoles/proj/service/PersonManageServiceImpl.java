@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.uoles.proj.database.dao.PersonDao;
 import ru.uoles.proj.model.Person;
+import ru.uoles.proj.types.PersonOperationType;
 
 import java.util.Objects;
 
@@ -33,6 +34,8 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
         } else {
             personDao.updatePerson(person);
         }
+
+        person.setOperation(PersonOperationType.UPDATE.getCanonicalName());
         return person;
     }
 }

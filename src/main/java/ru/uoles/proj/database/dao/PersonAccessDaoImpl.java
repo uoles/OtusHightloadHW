@@ -26,17 +26,17 @@ import java.util.Map;
  */
 @Repository
 @RequiredArgsConstructor
-@PropertySource(name="sqlPersonAccess", value="classpath:/db/sql/person-access.xml")
+@PropertySource(name="sqlPersonAccess", value="classpath:db/sql/person-access.xml")
 public class PersonAccessDaoImpl implements PersonAccessDao<PersonAccess> {
 
     private final Logger logger = LoggerFactory.getLogger(PersonAccessDaoImpl.class);
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{sqlPersonAccess['find.by.login']}")
-    private final String FIND_BY_LOGIN;
+    @Value("${find.by.login}")
+    private String FIND_BY_LOGIN;
 
-    @Value("#{sqlPersonAccess['add.new.credentials']}")
-    private final String ADD_NEW_CREDENTIALS;
+    @Value("${add.new.credentials}")
+    private String ADD_NEW_CREDENTIALS;
 
     @Override
     public PersonAccess findByLogin(final String login) {

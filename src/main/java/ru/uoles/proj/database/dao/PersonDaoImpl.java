@@ -27,19 +27,19 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{sqlPerson['find.by.id']}")
-    private final String FIND_BY_ID;
+    @Value("${find.by.guid}")
+    private String FIND_BY_GUID;
 
-    @Value("#{sqlPerson['add.person']}")
-    private final String ADD_PERSON;
+    @Value("${add.person}")
+    private String ADD_PERSON;
 
-    @Value("#{sqlPerson['update.person']}")
-    private final String UPDATE_PERSON;
+    @Value("${update.person}")
+    private String UPDATE_PERSON;
 
     @Override
     public Person findByGuid(final String guid) {
         List<Person> result = namedParameterJdbcTemplate.query(
-                FIND_BY_ID,
+                FIND_BY_GUID,
                 guidToParams(guid),
                 new PersonMapper()
         );

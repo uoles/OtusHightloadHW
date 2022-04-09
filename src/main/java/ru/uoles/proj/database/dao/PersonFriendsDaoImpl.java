@@ -23,8 +23,8 @@ public class PersonFriendsDaoImpl implements PersonFriendsDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Value("#{sqlPersonFriends['add.new.friend']}")
-    private final String ADD_NEW_FRIEND;
+    @Value("${add.new.friend}")
+    private String ADD_NEW_FRIEND;
 
     @Override
     public void addFriend(final String personGuid, final String friendGuid) {

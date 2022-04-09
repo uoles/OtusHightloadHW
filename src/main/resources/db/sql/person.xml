@@ -3,8 +3,8 @@
 <properties>
     <comment>Application Configuration</comment>
 
-    <entry key="find.by.id">
-        select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town " +
+    <entry key="find.by.guid">
+        select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town
         from PERSON
         where guid=:guid
     </entry>

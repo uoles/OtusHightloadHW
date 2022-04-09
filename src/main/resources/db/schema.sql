@@ -6,3 +6,4 @@ GRANT ALL PRIVILEGES ON mooncake_db.* TO 'admin'@'%';
 CREATE USER 'user'@'%' IDENTIFIED BY 'user';
 GRANT INSERT ON mooncake_db.* TO 'user'@'%';
 GRANT SELECT ON mooncake_db.* TO 'user'@'%';
+GRANT UPDATE ON mooncake_db.* TO 'user'@'%';

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.uoles.proj.model.Person;
 import ru.uoles.proj.service.PersonManageService;
+import ru.uoles.proj.types.PersonOperationType;
 
 import java.util.Objects;
 
@@ -31,9 +32,9 @@ public class PersonController {
         if (Objects.isNull(person)) {
             person = new Person();
             person.setGuid(guid);
-            person.setOperation("Save");
+            person.setOperation(PersonOperationType.SAVE.getCanonicalName());
         } else {
-            person.setOperation("Update");
+            person.setOperation(PersonOperationType.UPDATE.getCanonicalName());
         }
         model.addAttribute("person", person);
 
