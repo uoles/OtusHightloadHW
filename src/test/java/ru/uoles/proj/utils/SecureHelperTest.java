@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Time: 16:00
  */
 @DisplayName("Идентификация/авторизация пользователя")
-class SecureHelperTest {
+public class SecureHelperTest {
 
     private static final String passwordTrue = "passwordTest";
     private static final String passwordFalse = "password";

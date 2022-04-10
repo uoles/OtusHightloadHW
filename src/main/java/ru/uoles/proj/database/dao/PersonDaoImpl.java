@@ -36,6 +36,9 @@ public class PersonDaoImpl implements PersonDao<Person> {
     @Value("${update.person}")
     private String UPDATE_PERSON;
 
+    @Value("${find.all.persons}")
+    private String FIND_ALL_PERSONS;
+
     @Override
     public Person findByGuid(final String guid) {
         List<Person> result = namedParameterJdbcTemplate.query(
@@ -62,6 +65,14 @@ public class PersonDaoImpl implements PersonDao<Person> {
         namedParameterJdbcTemplate.update(
                 UPDATE_PERSON,
                 personToParams(person)
+        );
+    }
+
+    @Override
+    public List<Person> findAll() {
+        return namedParameterJdbcTemplate.query(
+                FIND_ALL_PERSONS,
+                new PersonMapper()
         );
     }
 

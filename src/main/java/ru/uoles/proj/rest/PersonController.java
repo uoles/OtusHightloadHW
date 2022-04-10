@@ -11,6 +11,7 @@ import ru.uoles.proj.model.Person;
 import ru.uoles.proj.service.PersonManageService;
 import ru.uoles.proj.types.PersonOperationType;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -44,5 +45,12 @@ public class PersonController {
         Person result = personManageService.updatePerson(person);
         model.addAttribute("person", result);
         return "person";
+    }
+
+    @GetMapping("/person/list")
+    public String getAll(Model model) {
+        List<Person> authors = personManageService.getPersons();
+        model.addAttribute("persons", authors);
+        return "persons";
     }
 }

@@ -1,5 +1,7 @@
 package ru.uoles.proj.service;
 
+import java.util.List;
+
 /**
  * OtusHightloadHW
  * Created by IntelliJ IDEA.
@@ -12,4 +14,6 @@ public interface PersonManageService<Person> {
     Person findByGuid(final String guid);
 
     Person updatePerson(final Person person);
+
+    List<Person> getPersons();
 }

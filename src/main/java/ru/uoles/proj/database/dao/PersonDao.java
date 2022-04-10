@@ -1,5 +1,9 @@
 package ru.uoles.proj.database.dao;
 
+import ru.uoles.proj.model.Person;
+
+import java.util.List;
+
 /**
  * OtusHightloadHW
  * Created by IntelliJ IDEA.
@@ -14,4 +18,6 @@ public interface PersonDao<Person> {
     void addPerson(final Person person);
 
     void updatePerson(final Person person);
+
+    List<Person> findAll();
 }

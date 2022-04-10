@@ -6,6 +6,7 @@ import ru.uoles.proj.database.dao.PersonDao;
 import ru.uoles.proj.model.Person;
 import ru.uoles.proj.types.PersonOperationType;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -36,5 +37,10 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
         }
         person.setOperation(PersonOperationType.UPDATE.getCanonicalName());
         return person;
+    }
+
+    @Override
+    public List<Person> getPersons() {
+        return personDao.findAll();
     }
 }

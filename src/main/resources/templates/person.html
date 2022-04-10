@@ -22,24 +22,9 @@
     <p>Town: <input type="text" th:field="*{town}" /></p>
     <p>Info: <input type="text" th:field="*{info}" /></p>
 
-<!--    <button type="submit">Save</button>-->
-<!--    <button type="submit" th:text="*{#strings.equals('save', operation)} ? '' : *{error}"></button>-->
-
     <p>
         <input type="submit" th:value="*{operation}" class="button" />
     </p>
-
-<!--    <div th:if="'update' == ${person.operation}">-->
-<!--        <p>-->
-<!--            <input type="submit" value="Update" class="button" formaction="/person" />-->
-<!--        </p>-->
-<!--    </div>-->
-
-<!--    <p>-->
-<!--        <input type="submit" value="Update" class="button" formaction="/person" hidden="hidden" />-->
-<!--    </p>-->
-
-<!--   p <span th:text="*{#strings.isEmpty(error)} ? '' : *{error}"></span>- -->
 </form>
 
 </body>

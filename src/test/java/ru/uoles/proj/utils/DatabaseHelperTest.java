@@ -21,6 +21,7 @@ public class DatabaseHelperTest {
         System.out.println(guid);
 
         assertNotNull(guid);
+        assertEquals(32, guid.length());
         assertFalse(guid.contains("-"));
     }
 }

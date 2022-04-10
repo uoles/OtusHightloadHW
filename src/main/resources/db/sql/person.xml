@@ -19,4 +19,10 @@
         set first_name=:first_name, second_name=:second_name, nick_name=:nick_name, info=:info, age=:age, gender=:gender, town=:town
         where guid=:guid
     </entry>
+
+    <entry key="find.all.persons">
+        select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town
+        from PERSON
+        limit 100
+    </entry>
 </properties>
