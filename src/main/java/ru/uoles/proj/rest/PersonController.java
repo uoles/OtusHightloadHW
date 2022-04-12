@@ -48,7 +48,14 @@ public class PersonController {
     }
 
     @GetMapping("/person/list")
-    public String getAll(Model model) {
+    public String getAll(final Model model) {
+        List<Person> authors = personManageService.getPersons();
+        model.addAttribute("persons", authors);
+        return "persons";
+    }
+
+    @GetMapping("/person/friend/add")
+    public String getAll(@RequestParam("guid") String guid, final Model model) {
         List<Person> authors = personManageService.getPersons();
         model.addAttribute("persons", authors);
         return "persons";

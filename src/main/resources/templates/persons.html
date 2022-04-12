@@ -37,7 +37,7 @@
             </form>
         </td>
         <td>
-            <form th:action="@{/person/friend/add(id=${person.guid})}" method="post">
+            <form th:action="@{/person/friend/add(guid=${person.guid})}" method="post">
                 <p>
                     <input type="submit" value="Make friends" class="button-table"/>
                 </p>

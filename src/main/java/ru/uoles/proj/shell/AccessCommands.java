@@ -16,7 +16,7 @@ import ru.uoles.proj.service.AuthorizationManageService;
  */
 @ShellComponent
 @RequiredArgsConstructor
-public class AuthorizationCommands {
+public class AccessCommands {
 
     private final AuthorizationManageService<Authorization> authorizationManageService;
 

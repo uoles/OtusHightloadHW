@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Mooncake - Social</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+</head>
+<body>
+
+<h1>Mooncake - Social</h1>
+
+<form action="#" th:action="@{/login}" method="get">
+    <p>
+        <input type="submit" value="Sign in" class="button"/>
+    </p>
+</form>
+
+<form action="#" th:action="@{/registration}" method="get">
+    <p>
+        <input type="submit" value="Registration" class="button"/>
+    </p>
+</form>
+
+</body>
+</html>

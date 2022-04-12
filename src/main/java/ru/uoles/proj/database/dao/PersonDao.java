@@ -1,7 +1,5 @@
 package ru.uoles.proj.database.dao;
 
-import ru.uoles.proj.model.Person;
-
 import java.util.List;
 
 /**
