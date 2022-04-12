@@ -38,7 +38,7 @@ public class AccessController {
         ModelAndView modelAndView = null;
         if (Objects.nonNull(personGuid)) {
             model.addAttribute("guid", personGuid);
-            modelAndView  = new ModelAndView("redirect:/person", model);
+            modelAndView  = new ModelAndView("redirect:/person/view", model);
         } else {
             authorization.setError("Authorization error");
             model.addAttribute("authorization", authorization);
@@ -60,7 +60,7 @@ public class AccessController {
         ModelAndView modelAndView = null;
         if (Objects.nonNull(personGuid)) {
             model.addAttribute("guid", personGuid);
-            modelAndView  = new ModelAndView("redirect:/person", model);
+            modelAndView  = new ModelAndView("redirect:/person/new", model);
         } else {
             authorization.setError("Registration error");
             model.addAttribute("authorization", authorization);

@@ -13,7 +13,15 @@
 
 <h1>Person detail:</h1>
 
-<form action="#" th:object="${person}" method="post">
+<td>
+    <form action="/logout">
+        <input type="submit" value="Logout" class="button"/>
+    </form>
+</td>
+
+<form action="#" th:action="@{/person/update}" th:object="${person}" method="post">
+    <input type="hidden" th:field="*{guid}" />
+
     <p>Nickname: <input type="text" th:field="*{nickName}" /></p>
     <p>First name: <input type="text" th:field="*{firstName}" /></p>
     <p>Second name: <input type="text" th:field="*{secondName}" /></p>

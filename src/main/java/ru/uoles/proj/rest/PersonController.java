@@ -27,20 +27,23 @@ public class PersonController {
 
     private final PersonManageService<Person> personManageService;
 
-    @GetMapping("/person")
+    @GetMapping("/person/view")
     public String findPerson(@RequestParam("guid") String guid, final Model model) {
         Person person = personManageService.findByGuid(guid);
-        if (Objects.isNull(person)) {
-            person = new Person();
-            person.setGuid(guid);
-            person.setOperation(PersonOperationType.SAVE.getCanonicalName());
-        }
         model.addAttribute("person", person);
-
         return "person";
     }
 
-    @PostMapping("/person")
+    @GetMapping("/person/new")
+    public String addPerson(@RequestParam("guid") String guid, final Model model) {
+        Person person = new Person();
+        person.setGuid(guid);
+        person.setOperation(PersonOperationType.SAVE.getCanonicalName());
+        model.addAttribute("person", person);
+        return "person";
+    }
+
+    @PostMapping("/person/update")
     public String addPerson(@ModelAttribute Person person, final Model model) {
         Person result = personManageService.updatePerson(person);
         model.addAttribute("person", result);
