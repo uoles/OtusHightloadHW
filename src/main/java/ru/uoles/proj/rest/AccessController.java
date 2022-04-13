@@ -31,7 +31,7 @@ public class AccessController {
         return "login";
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/authorization")
     public ModelAndView authorization(@ModelAttribute Authorization authorization, final ModelMap model) {
         final String personGuid = authorizationManageService.authorization(authorization);
 

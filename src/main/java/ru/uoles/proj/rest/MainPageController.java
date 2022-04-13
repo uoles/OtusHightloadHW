@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class MainPageController {
 
-    @GetMapping(value = {"/", "/index", "/main"})
+    @GetMapping(value = {"/", "/index"})
     public String index() {
         return "index";
     }

@@ -54,6 +54,11 @@
             <version>2.0.1.RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+        </dependency>
+
         <!-- MySQL JDBC driver -->
         <dependency>
             <groupId>mysql</groupId>

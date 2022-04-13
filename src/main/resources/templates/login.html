@@ -13,7 +13,7 @@
 
 <h1>Authorization</h1>
 
-<form action="#" th:action="@{/login}" th:object="${authorization}" method="post">
+<form th:action="@{/authorization}" th:object="${authorization}" method="post">
     <span th:text="*{error}" th:bgcolor="red"></span>
 
     <p>Login: <input type="text" th:field="*{login}" /></p>
