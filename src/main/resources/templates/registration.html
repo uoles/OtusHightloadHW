@@ -13,14 +13,24 @@
 
 <h1>New person registration</h1>
 
-<form th:action="@{/registration/new}" th:object="${authorization}" method="post">
-    <p>Login: <input type="text" th:field="*{login}" /></p>
-    <p>Password: <input type="text" th:field="*{password}" /></p>
-    <p>
-        <input type="submit" value="Registration" class="button"/>
-    </p>
+<form th:action="@{/registration/new}" method="post">
+    <span th:text="*{authorization.error}"></span>
+    <p>Login: <input type="text" th:field="${authorization.login}" /></p>
+    <p>Password: <input type="text" th:field="${authorization.password}" /></p>
 
-    <span th:text="*{error}"></span>
+    <input type="hidden" th:field="${person.guid}" />
+
+    <p>Nickname: <input type="text" th:field="${person.nickName}" /></p>
+    <p>First name: <input type="text" th:field="${person.firstName}" /></p>
+    <p>Second name: <input type="text" th:field="${person.secondName}" /></p>
+    <p>Age: <input type="text" th:field="${person.age}" /></p>
+    <p>Gender: <input type="text" th:field="${person.gender}" /></p>
+    <p>Town: <input type="text" th:field="${person.town}" /></p>
+    <p>Info: <input type="text" th:field="${person.info}" /></p>
+
+    <p>
+        <input type="submit" th:value="Registration" class="button" />
+    </p>
 </form>
 
 </body>

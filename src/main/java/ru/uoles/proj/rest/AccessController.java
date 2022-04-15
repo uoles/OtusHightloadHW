@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ru.uoles.proj.model.Authorization;
+import ru.uoles.proj.model.Person;
 import ru.uoles.proj.service.AuthorizationManageService;
+import ru.uoles.proj.service.PersonManageService;
 
 import java.util.Objects;
 
@@ -24,43 +26,51 @@ import java.util.Objects;
 public class AccessController {
 
     private final AuthorizationManageService<Authorization> authorizationManageService;
+    private final PersonManageService<Person> personManageService;
 
-    @GetMapping("/login")
-    public String authorization(final ModelMap model) {
-        model.addAttribute("authorization", new Authorization());
-        return "login";
-    }
+//    @GetMapping("/login")
+//    public String authorization(final ModelMap model) {
+//        model.addAttribute("authorization", new Authorization());
+//        return "login";
+//    }
 
-    @PostMapping(value = "/authorization")
-    public ModelAndView authorization(@ModelAttribute Authorization authorization, final ModelMap model) {
-        final String personGuid = authorizationManageService.authorization(authorization);
-
-        ModelAndView modelAndView = null;
-        if (Objects.nonNull(personGuid)) {
-            model.addAttribute("guid", personGuid);
-            modelAndView  = new ModelAndView("redirect:/person/view", model);
-        } else {
-            authorization.setError("Authorization error");
-            model.addAttribute("authorization", authorization);
-            modelAndView = new ModelAndView("login", model);
-        }
-        return modelAndView;
-    }
+//    @PostMapping(value = "/authorization")
+//    public ModelAndView authorization(@ModelAttribute Authorization authorization, final ModelMap model) {
+//        final String personGuid = authorizationManageService.authorization(authorization);
+//
+//        ModelAndView modelAndView = null;
+//        if (Objects.nonNull(personGuid)) {
+//            model.addAttribute("guid", personGuid);
+//            modelAndView  = new ModelAndView("redirect:/person/view", model);
+//        } else {
+//            authorization.setError("Authorization error");
+//            model.addAttribute("authorization", authorization);
+//            modelAndView = new ModelAndView("login", model);
+//        }
+//        return modelAndView;
+//    }
 
     @GetMapping(value = "/registration")
     public String registration(@ModelAttribute Authorization authorization, final ModelMap model) {
         model.addAttribute("authorization", new Authorization());
+        model.addAttribute("person", new Person());
         return "registration";
     }
 
     @PostMapping(value = "/registration/new")
-    public ModelAndView registrationNewPerson(@ModelAttribute Authorization authorization, final ModelMap model) {
+    public ModelAndView registrationNewPerson(
+            @ModelAttribute Authorization authorization,
+            @ModelAttribute Person person,
+            final ModelMap model
+    ) {
         final String personGuid = authorizationManageService.registration(authorization);
 
         ModelAndView modelAndView = null;
         if (Objects.nonNull(personGuid)) {
-            model.addAttribute("guid", personGuid);
-            modelAndView  = new ModelAndView("redirect:/person/new", model);
+            person.setGuid(personGuid);
+            personManageService.updatePerson(person);
+
+            modelAndView  = new ModelAndView("registration_success");
         } else {
             authorization.setError("Registration error");
             model.addAttribute("authorization", authorization);

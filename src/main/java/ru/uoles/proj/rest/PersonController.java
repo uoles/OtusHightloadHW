@@ -12,7 +12,6 @@ import ru.uoles.proj.service.PersonManageService;
 import ru.uoles.proj.types.PersonOperationType;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * OtusHightloadHW

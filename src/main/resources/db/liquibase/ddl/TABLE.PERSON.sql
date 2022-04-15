@@ -1,6 +1,6 @@
---liquibase formatted sql
---changeset uoles:create-table-PERSON
+-- liquibase formatted sql
 
+-- changeset uoles:TABLE-PERSON#0001 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
 CREATE TABLE PERSON (
     id int NOT NULL AUTO_INCREMENT,
     guid varchar(32) NOT NULL,
