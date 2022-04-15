@@ -54,10 +54,9 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
         boolean authenticate = false;
         try {
             personAccess = getPersonAccessDao().findByLogin(username);
-            String password = authentication.getCredentials().toString();
 
             authenticate = SecureHelper.authenticate(
-                    password,
+                    authentication.getCredentials().toString(),
                     personAccess.getSecretByteArray(),
                     personAccess.getSaltByteArray()
             );
