@@ -11,13 +11,23 @@
 </head>
 <body>
 
-<h1>Person detail:</h1>
-
 <td>
-    <form action="/logout">
-        <input type="submit" value="Logout" class="button"/>
+<!--    <form action="/logout">-->
+<!--        <input type="submit" value="Logout" class="button"/>-->
+<!--    </form>-->
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
     </form>
 </td>
+
+<td>
+    <form action="/person/list">
+        <input type="submit" value="Persons" class="button"/>
+    </form>
+</td>
+
+<h1>Person detail:</h1>
 
 <form action="#" th:action="@{/person/update}" th:object="${person}" method="post">
     <input type="hidden" th:field="*{guid}" />

@@ -28,27 +28,10 @@ public class AccessController {
     private final AuthorizationManageService<Authorization> authorizationManageService;
     private final PersonManageService<Person> personManageService;
 
-//    @GetMapping("/login")
-//    public String authorization(final ModelMap model) {
-//        model.addAttribute("authorization", new Authorization());
-//        return "login";
-//    }
-
-//    @PostMapping(value = "/authorization")
-//    public ModelAndView authorization(@ModelAttribute Authorization authorization, final ModelMap model) {
-//        final String personGuid = authorizationManageService.authorization(authorization);
-//
-//        ModelAndView modelAndView = null;
-//        if (Objects.nonNull(personGuid)) {
-//            model.addAttribute("guid", personGuid);
-//            modelAndView  = new ModelAndView("redirect:/person/view", model);
-//        } else {
-//            authorization.setError("Authorization error");
-//            model.addAttribute("authorization", authorization);
-//            modelAndView = new ModelAndView("login", model);
-//        }
-//        return modelAndView;
-//    }
+    @GetMapping("/login")
+    public String authorization(final ModelMap model) {
+        return "redirect:/login";
+    }
 
     @GetMapping(value = "/registration")
     public String registration(@ModelAttribute Authorization authorization, final ModelMap model) {

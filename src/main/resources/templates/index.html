@@ -1,5 +1,10 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">-->
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -13,17 +18,53 @@
 
 <h1>Mooncake - Social</h1>
 
-<form action="#" th:action="@{/login}" method="get">
+<form th:action="@{/login}" th:method="get">
     <p>
         <input type="submit" value="Sign in" class="button"/>
     </p>
 </form>
 
-<form action="#" th:action="@{/registration}" method="get">
+<form th:action="@{/registration}" method="get">
     <p>
         <input type="submit" value="Registration" class="button"/>
     </p>
 </form>
+
+<!--<ul>-->
+<!--    <li sec:authorize="isAnonymous()"><a class="nav-link" href="/login">Login</a></li>-->
+<!--    <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/logout">Logout</a></li>-->
+<!--    <li sec:authorize="isAuthenticated()">Wellcome, <span sec:authentication="name"></span></li>-->
+<!--</ul>-->
+
+<!--<div>-->
+<!--    <h3>{pageContext.request.userPrincipal.name}</h3>-->
+<!--    <sec:authorize access="!isAuthenticated()">-->
+<!--        <h4><a href="/login">Войти</a></h4>-->
+<!--    </sec:authorize>-->
+<!--    <sec:authorize access="isAuthenticated()">-->
+<!--        <h4><a href="/logout">Выйти</a></h4>-->
+<!--    </sec:authorize>-->
+<!--</div>-->
+
+
+<div sec:authorize="isAuthenticated()">
+    Text visible only to authenticated users.
+</div>
+
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
+<div sec:authorize="hasRole('ADMIN')">
+    This content is only shown to administrators.§§
+</div>
+
+<div sec:authorize="hasRole('USER')">
+    This content is only shown to users.
+</div>
+
+<span th:text="${#authentication.getPrincipal()}"></span>
+
+<br/>
+
 
 </body>
 </html>

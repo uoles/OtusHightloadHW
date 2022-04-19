@@ -25,11 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PersonAccessDao<PersonAccess> personAccessDao;
 
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        return new PersonAccessService(personAccessDao);
-//    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
@@ -44,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/","/index").not().fullyAuthenticated()
-                .antMatchers("/login").not().fullyAuthenticated()
+                .antMatchers("/login*").not().fullyAuthenticated()
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers(HttpMethod.POST, "/registration/new").not().fullyAuthenticated()
                 //Доступ разрешен всем пользователей
