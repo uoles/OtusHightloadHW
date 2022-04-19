@@ -18,4 +18,6 @@ public interface PersonDao<Person> {
     void updatePerson(final Person person);
 
     List<Person> findNotFriendPersons(final String guid);
+
+    List<Person> findFriendPersons(final String guid);
 }

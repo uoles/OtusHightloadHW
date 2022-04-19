@@ -2,7 +2,6 @@ package ru.uoles.proj.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,6 @@ import ru.uoles.proj.service.PersonFriendsService;
 import ru.uoles.proj.service.PersonManageService;
 import ru.uoles.proj.types.PersonOperationType;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -30,12 +28,14 @@ import java.util.List;
 public class PersonController {
 
     private final PersonManageService<Person> personManageService;
-    private final PersonFriendsService<Person> personMaFriendsService;
+    private final PersonFriendsService<Person> personFriendsService;
 
     @GetMapping("/person/main")
     public String mainPerson(final Model model) {
         Person person = personManageService.findByGuid(getAuthPersonGUID());
+        List<Person> persons = personManageService.findFriendPersons(getAuthPersonGUID());
         model.addAttribute("person", person);
+        model.addAttribute("persons", persons);
         return "person";
     }
 
@@ -71,7 +71,7 @@ public class PersonController {
 
     @GetMapping("/person/friend/add")
     public String addFriend(@RequestParam("guid") String friendGuid) {
-        personMaFriendsService.addFriend(getAuthPersonGUID(), friendGuid);
+        personFriendsService.addFriend(getAuthPersonGUID(), friendGuid);
         return "redirect:/person/list";
     }
 

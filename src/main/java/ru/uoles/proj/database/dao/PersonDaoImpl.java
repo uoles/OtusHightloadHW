@@ -36,8 +36,11 @@ public class PersonDaoImpl implements PersonDao<Person> {
     @Value("${update.person}")
     private String UPDATE_PERSON;
 
-    @Value("${find.all.persons}")
-    private String FIND_ALL_PERSONS;
+    @Value("${find.not.friend.persons}")
+    private String FIND_NOT_FRIEND_PERSONS;
+
+    @Value("${find.friend.persons}")
+    private String FIND_FRIEND_PERSONS;
 
     @Override
     public Person findByGuid(final String guid) {
@@ -71,7 +74,16 @@ public class PersonDaoImpl implements PersonDao<Person> {
     @Override
     public List<Person> findNotFriendPersons(final String guid) {
         return namedParameterJdbcTemplate.query(
-                FIND_ALL_PERSONS,
+                FIND_NOT_FRIEND_PERSONS,
+                guidToParams(guid),
+                new PersonMapper()
+        );
+    }
+
+    @Override
+    public List<Person> findFriendPersons(final String guid) {
+        return namedParameterJdbcTemplate.query(
+                FIND_FRIEND_PERSONS,
                 guidToParams(guid),
                 new PersonMapper()
         );

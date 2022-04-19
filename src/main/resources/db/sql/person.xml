@@ -20,11 +20,19 @@
         where guid=:guid
     </entry>
 
-    <entry key="find.all.persons">
+    <entry key="find.not.friend.persons">
         select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town
         from PERSON p
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid=:guid
         where pf.friend_guid is null
+        limit 100
+    </entry>
+
+    <entry key="find.friend.persons">
+        select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town
+        from PERSON p
+        left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid=:guid
+        where pf.friend_guid is not null
         limit 100
     </entry>
 </properties>

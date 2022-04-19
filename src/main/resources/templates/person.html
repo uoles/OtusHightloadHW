@@ -25,7 +25,7 @@
 
 <h1>Person detail:</h1>
 
-<form action="#" th:action="@{/person/update}" th:object="${person}" method="post">
+<form th:action="@{/person/update}" th:object="${person}" method="post">
     <input type="hidden" th:field="*{guid}" />
 
     <p>Nickname: <input type="text" th:field="*{nickName}" /></p>
@@ -40,6 +40,43 @@
         <input type="submit" th:value="*{operation}" class="button" />
     </p>
 </form>
+
+<h1>Friends:</h1>
+
+<table class="objects">
+    <thead>
+    <tr>
+        <th>Surname</th>
+        <th>FirstName</th>
+        <th>Nick</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Town</th>
+        <th>Info</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="person : ${persons}">
+        <td th:text="${person.firstName}">mock</td>
+        <td th:text="${person.secondName}">mock</td>
+        <td th:text="${person.nickName}">mock</td>
+        <td th:text="${person.age}">mock</td>
+        <td th:text="${person.gender}">mock</td>
+        <td th:text="${person.town}">mock</td>
+        <td th:text="${person.info}">mock</td>
+
+<!--        <td>-->
+<!--            <form th:action="@{/person/view}" method="get">-->
+<!--                <p>-->
+<!--                    <input type="hidden" th:name="guid" th:value="${person.guid}" />-->
+<!--                    <input type="submit" value="View" class="button-table"/>-->
+<!--                </p>-->
+<!--            </form>-->
+<!--        </td>-->
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

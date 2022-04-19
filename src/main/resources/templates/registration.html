@@ -13,7 +13,7 @@
 
 <h1>New person registration</h1>
 
-<form th:action="@{/registration/new}" method="post">
+<form th:action="@{/registration/new}" th:method="post">
     <span th:text="*{authorization.error}"></span>
     <p>Login: <input type="text" th:field="${authorization.login}" /></p>
     <p>Password: <input type="text" th:field="${authorization.password}" /></p>

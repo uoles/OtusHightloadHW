@@ -44,4 +44,9 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     public List<Person> findNotFriendPersons(final String guid) {
         return personDao.findNotFriendPersons(guid);
     }
+
+    @Override
+    public List<Person> findFriendPersons(final String guid) {
+        return personDao.findFriendPersons(guid);
+    }
 }
