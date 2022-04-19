@@ -1,14 +1,19 @@
 package ru.uoles.proj.database.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import ru.uoles.proj.database.mapper.PersonAccessMapper;
 import ru.uoles.proj.model.Person;
+import ru.uoles.proj.model.PersonAccess;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * OtusHightloadHW
@@ -26,6 +31,20 @@ public class PersonFriendsDaoImpl implements PersonFriendsDao<Person> {
 
     @Value("${add.new.friend}")
     private String ADD_NEW_FRIEND;
+
+    @Value("${find.friend}")
+    private String FIND_FRIEND;
+
+    @Override
+    public boolean findFriend(final String personGuid, final String friendGuid) {
+        Integer result = namedParameterJdbcTemplate.queryForObject(
+                FIND_FRIEND,
+                guidsToParams(personGuid, friendGuid),
+                Integer.class
+        );
+
+        return Objects.nonNull(result) && !Objects.equals(0, result);
+    }
 
     @Override
     public void addFriend(final String personGuid, final String friendGuid) {

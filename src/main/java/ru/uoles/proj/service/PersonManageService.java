@@ -15,7 +15,5 @@ public interface PersonManageService<Person> {
 
     Person updatePerson(final Person person);
 
-    List<Person> getPersons();
-
-    void addFriend(final String personGuid, final String friendGuid);
+    List<Person> findNotFriendPersons(final String guid);
 }

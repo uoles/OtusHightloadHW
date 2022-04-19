@@ -12,17 +12,13 @@
 <body>
 
 <td>
-<!--    <form action="/logout">-->
-<!--        <input type="submit" value="Logout" class="button"/>-->
-<!--    </form>-->
-
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
+    <form th:action="@{/logout}">
+        <input type="submit" value="Logout" class="button"/>
     </form>
 </td>
 
 <td>
-    <form action="/person/list">
+    <form th:action="@{/person/list}">
         <input type="submit" value="Persons" class="button"/>
     </form>
 </td>

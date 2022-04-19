@@ -69,9 +69,10 @@ public class PersonDaoImpl implements PersonDao<Person> {
     }
 
     @Override
-    public List<Person> findAll() {
+    public List<Person> findNotFriendPersons(final String guid) {
         return namedParameterJdbcTemplate.query(
                 FIND_ALL_PERSONS,
+                guidToParams(guid),
                 new PersonMapper()
         );
     }

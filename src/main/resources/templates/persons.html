@@ -12,8 +12,14 @@
 <body>
 
 <td>
-    <form action="/logout">
+    <form th:action="@{/logout}">
         <input type="submit" value="Logout" class="button"/>
+    </form>
+</td>
+
+<td>
+    <form th:action="@{/person/main}">
+        <input type="submit" value="User info" class="button"/>
     </form>
 </td>
 
@@ -43,8 +49,9 @@
             </form>
         </td>
         <td>
-            <form th:action="@{/person/friend/add(guid=${person.guid})}" method="post">
+            <form th:action="@{/person/friend/add}" method="get">
                 <p>
+                    <input type="hidden" th:name="guid" th:value="${person.guid}" />
                     <input type="submit" value="Make friends" class="button-table"/>
                 </p>
             </form>

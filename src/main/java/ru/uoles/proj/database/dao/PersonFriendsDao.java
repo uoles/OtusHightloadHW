@@ -9,5 +9,7 @@ package ru.uoles.proj.database.dao;
  */
 public interface PersonFriendsDao<Person> {
 
+    boolean findFriend(String personGuid, String friendGuid);
+
     void addFriend(final String personGuid, final String friendGuid);
 }

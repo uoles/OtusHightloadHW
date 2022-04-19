@@ -22,7 +22,6 @@ import java.util.Objects;
 public class PersonManageServiceImpl implements PersonManageService<Person> {
 
     private final PersonDao<Person> personDao;
-    private final PersonFriendsDao<Person> personFriendsDao;
 
     @Override
     public Person findByGuid(final String guid) {
@@ -42,12 +41,7 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     }
 
     @Override
-    public List<Person> getPersons() {
-        return personDao.findAll();
-    }
-
-    @Override
-    public void addFriend(final String personGuid, final String friendGuid){
-        personFriendsDao.addFriend(personGuid, friendGuid);
+    public List<Person> findNotFriendPersons(final String guid) {
+        return personDao.findNotFriendPersons(guid);
     }
 }

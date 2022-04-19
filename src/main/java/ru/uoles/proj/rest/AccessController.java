@@ -29,7 +29,7 @@ public class AccessController {
     private final PersonManageService<Person> personManageService;
 
     @GetMapping("/login")
-    public String authorization(final ModelMap model) {
+    public String login() {
         return "redirect:/login";
     }
 

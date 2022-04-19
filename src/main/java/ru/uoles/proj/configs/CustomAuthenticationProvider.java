@@ -49,7 +49,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
             throw new BadCredentialsException("invalid login details");
         }
         // get user details using Spring security user details service
-        UserDetails user = null;
+        PersonAccessDetails user = null;
         PersonAccess personAccess = null;
         boolean authenticate = false;
         try {
@@ -73,9 +73,12 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
         return createSuccessfulAuthentication(authentication, user);
     }
 
-    private Authentication createSuccessfulAuthentication(final Authentication authentication, final UserDetails user) {
+    private Authentication createSuccessfulAuthentication(final Authentication authentication, final PersonAccessDetails user) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), authentication.getCredentials(), user.getAuthorities());
-        token.setDetails(authentication.getDetails());
+        CustomWebAuthenticationDetails details = (CustomWebAuthenticationDetails) authentication.getDetails();
+        details.setPersonGuid(user.getPersonAccess().getPersonGuid());
+
+        token.setDetails(details);
         return token;
     }
 
