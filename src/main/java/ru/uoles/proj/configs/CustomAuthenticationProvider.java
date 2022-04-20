@@ -5,7 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.StringUtils;
 import ru.uoles.proj.database.dao.PersonAccessDao;
@@ -15,6 +14,7 @@ import ru.uoles.proj.utils.SecureHelper;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Objects;
 
 /**
  * OtusHightloadHW
@@ -45,29 +45,32 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         final String username = (authentication.getPrincipal() == null) ? "NONE_PROVIDED" : authentication.getName();
-        if (StringUtils.isEmpty(username)) {
-            throw new BadCredentialsException("invalid login details");
+        if (StringUtils.isEmpty(username) || Objects.equals("NONE_PROVIDED", username)) {
+            throw new BadCredentialsException("Invalid login details");
         }
+
         // get user details using Spring security user details service
-        PersonAccessDetails user = null;
-        PersonAccess personAccess = null;
+        PersonAccess personAccess = getPersonAccessDao().findByLogin(username);
+        if (Objects.isNull(personAccess)) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
         boolean authenticate = false;
         try {
-            personAccess = getPersonAccessDao().findByLogin(username);
-
             authenticate = SecureHelper.authenticate(
                     authentication.getCredentials().toString(),
                     personAccess.getSecretByteArray(),
                     personAccess.getSaltByteArray()
             );
         } catch (UsernameNotFoundException | NoSuchAlgorithmException | InvalidKeySpecException exception) {
-            throw new BadCredentialsException("invalid login details");
+            throw new BadCredentialsException("Invalid login details");
         }
 
+        PersonAccessDetails user = null;
         if (authenticate) {
             user = new PersonAccessDetails(personAccess);
         } else {
-            throw new BadCredentialsException("invalid password");
+            throw new BadCredentialsException("Invalid password");
         }
 
         return createSuccessfulAuthentication(authentication, user);

@@ -75,6 +75,12 @@ public class PersonController {
         return "redirect:/person/list";
     }
 
+    @GetMapping("/person/friend/delete")
+    public String deleteFriend(@RequestParam("guid") String friendGuid) {
+        personFriendsService.deleteFriend(getAuthPersonGUID(), friendGuid);
+        return "redirect:/person/main";
+    }
+
     private String getAuthPersonGUID() {
         CustomWebAuthenticationDetails details =
                 (CustomWebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();

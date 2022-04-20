@@ -12,4 +12,6 @@ public interface PersonFriendsService<Person> {
     boolean findFriend(String personGuid, String friendGuid);
 
     void addFriend(String personGuid, String friendGuid);
+
+    void deleteFriend(String personGuid, String friendGuid);
 }

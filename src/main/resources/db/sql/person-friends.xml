@@ -13,4 +13,9 @@
         where person_guid=:person_guid and friend_guid=:friend_guid
     </entry>
 
+    <entry key="delete.friend">
+        delete from PERSON_FRIENDS
+        where person_guid=:person_guid and friend_guid=:friend_guid
+    </entry>
+
 </properties>

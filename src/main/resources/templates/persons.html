@@ -23,42 +23,49 @@
     </form>
 </td>
 
-<h1>Persons:</h1>
+<div th:if="${#lists.isEmpty(persons)}" >
+    List of persons is empty...
+</div>
 
-<table class="objects">
-    <thead>
-    <tr>
-        <th>Surname</th>
-        <th>FirstName</th>
-        <th>nickName</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="person : ${persons}">
-        <td th:text="${person.firstName}">mock</td>
-        <td th:text="${person.secondName}">mock</td>
-        <td th:text="${person.nickName}">mock</td>
-        <td>
-            <form th:action="@{/person/view}" th:method="get">
-                <p>
-                    <input type="hidden" th:name="guid" th:value="${person.guid}" />
-                    <input type="submit" value="View" class="button-table"/>
-                </p>
-            </form>
-        </td>
-        <td>
-            <form th:action="@{/person/friend/add}" th:method="get">
-                <p>
-                    <input type="hidden" th:name="guid" th:value="${person.guid}" />
-                    <input type="submit" value="Make friends" class="button-table"/>
-                </p>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div th:if="${not #lists.isEmpty(persons)}" >
+    <h1>Persons:</h1>
+
+    <table class="objects">
+        <thead>
+            <tr>
+                <th>Surname</th>
+                <th>FirstName</th>
+                <th>nickName</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="person : ${persons}">
+                <td th:text="${person.firstName}">mock</td>
+                <td th:text="${person.secondName}">mock</td>
+                <td th:text="${person.nickName}">mock</td>
+                <td>
+                    <form th:action="@{/person/view}" th:method="get">
+                        <p>
+                            <input type="hidden" th:name="guid" th:value="${person.guid}" />
+                            <input type="submit" value="View" class="button-table"/>
+                        </p>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/person/friend/add}" th:method="get">
+                        <p>
+                            <input type="hidden" th:name="guid" th:value="${person.guid}" />
+                            <input type="submit" value="Make friends" class="button-table"/>
+                        </p>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

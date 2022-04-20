@@ -21,17 +21,17 @@
     </entry>
 
     <entry key="find.not.friend.persons">
-        select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town
+        select p.guid, p.registration_date, p.dissolution_date, p.permissions_id, p.first_name, p.second_name, p.nick_name, p.info, p.age, p.gender, p.town
         from PERSON p
-        left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid=:guid
-        where pf.friend_guid is null
-        limit 100
+        left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
+        where pf.friend_guid is null and p.guid != :guid
+        limit 100;
     </entry>
 
     <entry key="find.friend.persons">
         select guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town
         from PERSON p
-        left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid=:guid
+        left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
         where pf.friend_guid is not null
         limit 100
     </entry>

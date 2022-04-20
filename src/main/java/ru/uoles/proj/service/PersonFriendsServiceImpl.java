@@ -30,4 +30,12 @@ public class PersonFriendsServiceImpl implements PersonFriendsService<Person> {
             personFriendsDao.addFriend(personGuid, friendGuid);
         }
     }
+
+    @Override
+    public void deleteFriend(final String personGuid, final String friendGuid){
+        boolean isFriendFind = personFriendsDao.findFriend(personGuid, friendGuid);
+        if (isFriendFind) {
+            personFriendsDao.deleteFriend(personGuid, friendGuid);
+        }
+    }
 }
