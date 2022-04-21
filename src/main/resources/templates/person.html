@@ -23,6 +23,10 @@
     </form>
 </td>
 
+<br/>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<br/>
+
 <h1>Person detail:</h1>
 
 <form th:action="@{/person/update}" th:object="${person}" method="post">
@@ -58,6 +62,7 @@
                 <th>Gender</th>
                 <th>Town</th>
                 <th>Info</th>
+                <th></th>
             </tr>
         </thead>
 

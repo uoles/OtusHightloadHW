@@ -44,21 +44,21 @@
 <!--</div>-->
 
 
-<div sec:authorize="isAuthenticated()">
-    Text visible only to authenticated users.
-</div>
+<!--<div sec:authorize="isAuthenticated()">-->
+<!--    Text visible only to authenticated users.-->
+<!--</div>-->
 
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
 
-<div sec:authorize="hasRole('ADMIN')">
-    This content is only shown to administrators.§§
-</div>
+<!--<div sec:authorize="hasRole('ADMIN')">-->
+<!--    This content is only shown to administrators.§§-->
+<!--</div>-->
 
-<div sec:authorize="hasRole('USER')">
-    This content is only shown to users.
-</div>
+<!--<div sec:authorize="hasRole('USER')">-->
+<!--    This content is only shown to users.-->
+<!--</div>-->
 
-<span th:text="${#authentication.getPrincipal()}"></span>
+<!--<span th:text="${#authentication.getPrincipal()}"></span>-->
 
 <br/>
 
