@@ -2,8 +2,23 @@
 Домашние задания по курсу Otus. Highload Architect.
 JDK: 11.
 
-URL для входа: http://localhost:8080/login
+URL для входа: http://localhost:8081/
 
+---
+### Создание БД:
+> docker run -p 6603:3306 --name social-mysql \
+        -e MYSQL_ROOT_PASSWORD=8b03005ef88c426498523bbe0757d101 \
+        -v /home/uoles/project/mysql_db:/var/lib/mysql \
+        -d mysql:8
+---
+### Создаем образ с приложением:
+> docker build -t uoles/mooncake-social .
+
+### Запускаем контейнер:
+> docker run --name social-project \
+        -p 8081:8081 \
+        --network=host \
+        -d uoles/mooncake-social
 ---
 ### Задание: 
 Заготовка для социальной сети.
