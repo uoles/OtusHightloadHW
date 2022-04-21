@@ -1,6 +1,7 @@
 # OtusHightloadHW
 Домашние задания по курсу Otus. Highload Architect.
-JDK: 11.
+JDK 11.
+MySQL 8.
 
 URL для входа: http://localhost:8081/
 
