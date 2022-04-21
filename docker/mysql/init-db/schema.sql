@@ -7,3 +7,4 @@ CREATE USER 'user'@'%' IDENTIFIED BY 'user';
 GRANT INSERT ON mooncake_db.* TO 'user'@'%';
 GRANT SELECT ON mooncake_db.* TO 'user'@'%';
 GRANT UPDATE ON mooncake_db.* TO 'user'@'%';
+GRANT DELETE ON mooncake_db.* TO 'user'@'%';
