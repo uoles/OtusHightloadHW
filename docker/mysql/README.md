@@ -1,4 +1,4 @@
-###Запуск MySQL в контейнере:
+### Запуск MySQL в контейнере:
 
 #### Запуск с рандомным паролем MYSQL_ROOT_PASSWORD:
 > docker run -p 6603:3306 --name social-mysql \
