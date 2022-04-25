@@ -14,19 +14,51 @@
 </head>
 <body>
 
-<h1>Mooncake - Social</h1>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
 
-<form th:action="@{/login}" th:method="get">
-    <p>
-        <input type="submit" value="Sign in" class="button"/>
-    </p>
-</form>
+            <div sec:authorize="isAuthenticated()">
+                <span class="fs-4">Mooncake-social | Login as [[${#httpServletRequest.remoteUser}]]</span>
+            </div>
 
-<form th:action="@{/registration}" th:method="get">
-    <p>
-        <input type="submit" value="Registration" class="button"/>
-    </p>
-</form>
+            <div sec:authorize="!isAuthenticated()">
+                <span class="fs-4">Mooncake-social</span>
+            </div>
+        </a>
+
+        <div sec:authorize="isAuthenticated()">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a th:href="@{/person/main}" class="nav-link">User info</a></li>
+                <li class="nav-item"><a th:href="@{/person/friend/list}" class="nav-link">Friends</a></li>
+                <li class="nav-item"><a th:href="@{/person/list}" class="nav-link">Persons</a></li>
+                <li class="nav-item"><a th:href="@{/logout}" class="nav-link">Logout</a></li>
+            </ul>
+        </div>
+
+        <div sec:authorize="!isAuthenticated()">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a th:href="@{/registration}" class="nav-link">Registration</a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+            </ul>
+        </div>
+    </header>
+</div>
+
+<!--<h1>Mooncake - Social</h1>-->
+
+<!--<form th:action="@{/login}" th:method="get">-->
+<!--    <p>-->
+<!--        <input type="submit" value="Sign in" class="button"/>-->
+<!--    </p>-->
+<!--</form>-->
+
+<!--<form th:action="@{/registration}" th:method="get">-->
+<!--    <p>-->
+<!--        <input type="submit" value="Registration" class="button"/>-->
+<!--    </p>-->
+<!--</form>-->
 
 <!--<ul>-->
 <!--    <li sec:authorize="isAnonymous()"><a class="nav-link" href="/login">Login</a></li>-->
@@ -61,7 +93,7 @@
 
 <!--<span th:text="${#authentication.getPrincipal()}"></span>-->
 
-<br/>
+<!--<br/>-->
 
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/2.9.3/umd/popper.min.js}"></script>

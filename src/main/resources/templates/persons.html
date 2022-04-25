@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -16,32 +18,50 @@
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-            <span class="fs-4">Mooncake-social</span>
+
+            <div sec:authorize="isAuthenticated()">
+                <span class="fs-4">Mooncake-social | Login as [[${#httpServletRequest.remoteUser}]]</span>
+            </div>
+
+            <div sec:authorize="!isAuthenticated()">
+                <span class="fs-4">Mooncake-social</span>
+            </div>
         </a>
 
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a th:href="@{/person/main}" class="nav-link">User info</a></li>
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Persons</a></li>
-            <li class="nav-item"><a th:href="@{/logout}" class="nav-link">Logout</a></li>
-        </ul>
+        <div sec:authorize="isAuthenticated()">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a th:href="@{/person/main}" class="nav-link">User info</a></li>
+                <li class="nav-item"><a th:href="@{/person/friend/list}" class="nav-link">Friends</a></li>
+                <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Persons</a></li>
+                <li class="nav-item"><a th:href="@{/logout}" class="nav-link">Logout</a></li>
+            </ul>
+        </div>
+
+        <div sec:authorize="!isAuthenticated()">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Persons</a></li>
+                <li class="nav-item"><a th:href="@{/registration}" class="nav-link">Registration</a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+            </ul>
+        </div>
     </header>
 </div>
 
-<td>
-    <form th:action="@{/logout}">
-        <input type="submit" value="Logout" class="button"/>
-    </form>
-</td>
+<!--<td>-->
+<!--    <form th:action="@{/logout}">-->
+<!--        <input type="submit" value="Logout" class="button"/>-->
+<!--    </form>-->
+<!--</td>-->
 
-<td>
-    <form th:action="@{/person/main}">
-        <input type="submit" value="User info" class="button"/>
-    </form>
-</td>
+<!--<td>-->
+<!--    <form th:action="@{/person/main}">-->
+<!--        <input type="submit" value="User info" class="button"/>-->
+<!--    </form>-->
+<!--</td>-->
 
-<br/>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<br/>
+<!--<br/>-->
+<!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
+<!--<br/>-->
 
 <div th:if="${#lists.isEmpty(persons)}" >
     List of persons is empty...
