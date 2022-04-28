@@ -1,5 +1,7 @@
 package ru.uoles.proj.database.dao;
 
+import ru.uoles.proj.model.PersonSearch;
+
 import java.util.List;
 
 /**
@@ -20,4 +22,6 @@ public interface PersonDao<Person> {
     List<Person> findNotFriendPersons(final String guid);
 
     List<Person> findFriendPersons(final String guid);
+
+    List<Person> findPersons(final PersonSearch personSearch, final String guid);
 }

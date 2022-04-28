@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.uoles.proj.configs.CustomWebAuthenticationDetails;
 import ru.uoles.proj.model.Person;
+import ru.uoles.proj.model.PersonSearch;
 import ru.uoles.proj.service.PersonFriendsService;
 import ru.uoles.proj.service.PersonManageService;
 import ru.uoles.proj.types.PersonOperationType;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static ru.uoles.proj.utils.SecureHelper.getAuthPersonGUID;
 
 /**
  * OtusHightloadHW
@@ -64,8 +68,9 @@ public class PersonController {
 
     @GetMapping("/person/list")
     public String getAll(final Model model) {
-        List<Person> authors = personManageService.findNotFriendPersons(getAuthPersonGUID());
-        model.addAttribute("persons", authors);
+        List<Person> persons = personManageService.findNotFriendPersons(getAuthPersonGUID());
+        model.addAttribute("persons", persons);
+        model.addAttribute("personSearch", new PersonSearch("", ""));
         return "persons";
     }
 
@@ -81,9 +86,11 @@ public class PersonController {
         return "redirect:/person/main";
     }
 
-    private String getAuthPersonGUID() {
-        CustomWebAuthenticationDetails details =
-                (CustomWebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        return details.getPersonGuid();
+    @PostMapping("/person/search")
+    public String searchPerson(@ModelAttribute PersonSearch personSearch, final Model model) {
+        List<Person> result = personManageService.findPersons(personSearch);
+        model.addAttribute("persons", result);
+        model.addAttribute("personSearch", personSearch);
+        return "persons";
     }
 }

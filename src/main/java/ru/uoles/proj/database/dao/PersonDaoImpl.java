@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.uoles.proj.database.mapper.PersonMapper;
 import ru.uoles.proj.model.Person;
+import ru.uoles.proj.model.PersonSearch;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,9 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Value("${find.friend.persons}")
     private String FIND_FRIEND_PERSONS;
+
+    @Value("${find.persons}")
+    private String FIND_PERSONS;
 
     @Override
     public Person findByGuid(final String guid) {
@@ -87,6 +91,23 @@ public class PersonDaoImpl implements PersonDao<Person> {
                 guidToParams(guid),
                 new PersonMapper()
         );
+    }
+
+    @Override
+    public List<Person> findPersons(final PersonSearch personSearch, final String guid) {
+        return namedParameterJdbcTemplate.query(
+                FIND_PERSONS,
+                personSearchToParams(personSearch, guid),
+                new PersonMapper()
+        );
+    }
+
+    private Map<String, Object> personSearchToParams(final PersonSearch personSearch, final String guid) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("guid", guid);
+        params.put("first_name", String.join("", "%", personSearch.getFirstName(), "%"));
+        params.put("second_name", String.join("", "%", personSearch.getSecondName(), "%"));
+        return params;
     }
 
     private Map<String, Object> guidToParams(final String guid) {

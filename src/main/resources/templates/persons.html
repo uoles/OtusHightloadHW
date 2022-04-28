@@ -27,6 +27,33 @@
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 <br/>
 
+<form th:action="@{/person/search}" th:object="${personSearch}" method="post">
+    <input type="text"
+           placeholder="Enter first name"
+           name="search"
+           th:field="*{firstName}">
+<!--           required-->
+
+    <input type="text"
+           placeholder="Enter second name"
+           name="search"
+           th:field="*{secondName}">
+<!--           required-->
+
+    <p>
+        <input type="submit" value="Search" class="button" />
+    </p>
+</form>
+
+<!--<form th:action="@{/person/search}" method="get">-->
+<!--    <p>First name: <input type="text" th:field="firstName" /></p>-->
+<!--    <p>Second name: <input type="text" th:field="secondName" /></p>-->
+
+<!--    <p>-->
+<!--        <input type="submit" th:value="Search" class="button" />-->
+<!--    </p>-->
+<!--</form>-->
+
 <div th:if="${#lists.isEmpty(persons)}" >
     List of persons is empty...
 </div>

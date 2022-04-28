@@ -1,13 +1,19 @@
 package ru.uoles.proj.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
+import ru.uoles.proj.configs.CustomWebAuthenticationDetails;
 import ru.uoles.proj.database.dao.PersonDao;
 import ru.uoles.proj.model.Person;
+import ru.uoles.proj.model.PersonSearch;
 import ru.uoles.proj.types.PersonOperationType;
 
 import java.util.List;
 import java.util.Objects;
+
+import static ru.uoles.proj.utils.SecureHelper.getAuthPersonGUID;
 
 /**
  * OtusHightloadHW
@@ -47,5 +53,16 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     @Override
     public List<Person> findFriendPersons(final String guid) {
         return personDao.findFriendPersons(guid);
+    }
+
+    @Override
+    public List<Person> findPersons(final PersonSearch personSearch) {
+        List<Person> result = null;
+        if ( StringUtils.isEmpty(personSearch.getFirstName()) && StringUtils.isEmpty(personSearch.getSecondName()) ) {
+            result = personDao.findNotFriendPersons(getAuthPersonGUID());
+        } else {
+            result = personDao.findPersons(personSearch, getAuthPersonGUID());
+        }
+        return result;
     }
 }

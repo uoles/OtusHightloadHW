@@ -1,5 +1,8 @@
 package ru.uoles.proj.service;
 
+import ru.uoles.proj.model.Person;
+import ru.uoles.proj.model.PersonSearch;
+
 import java.util.List;
 
 /**
@@ -18,4 +21,6 @@ public interface PersonManageService<Person> {
     List<Person> findNotFriendPersons(final String guid);
 
     List<Person> findFriendPersons(final String guid);
+
+    List<Person> findPersons(final PersonSearch personSearch);
 }

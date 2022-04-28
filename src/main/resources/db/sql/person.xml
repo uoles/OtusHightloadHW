@@ -35,4 +35,15 @@
         where pf.friend_guid is not null
         limit 100
     </entry>
+
+    <entry key="find.persons">
+        select p.guid, p.registration_date, p.dissolution_date, p.permissions_id, p.first_name, p.second_name, p.nick_name, p.info, p.age, p.gender, p.town
+        from PERSON p
+        left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
+        where pf.friend_guid is null
+            and p.guid != :guid
+            and upper(p.first_name) like upper(:first_name)
+            and upper(p.second_name) like upper(:second_name)
+        limit 100;
+    </entry>
 </properties>

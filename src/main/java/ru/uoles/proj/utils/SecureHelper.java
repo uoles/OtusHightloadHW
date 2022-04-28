@@ -1,5 +1,8 @@
 package ru.uoles.proj.utils;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import ru.uoles.proj.configs.CustomWebAuthenticationDetails;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
@@ -64,5 +67,11 @@ public final class SecureHelper {
         random.nextBytes(salt);
 
         return salt;
+    }
+
+    public static String getAuthPersonGUID() {
+        CustomWebAuthenticationDetails details =
+                (CustomWebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        return details.getPersonGuid();
     }
 }
