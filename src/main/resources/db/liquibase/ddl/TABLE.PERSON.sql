@@ -17,3 +17,6 @@ CREATE TABLE PERSON (
 
     PRIMARY KEY (id)
 ) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='Список пользователей';
+
+-- changeset uoles:TABLE-PERSON#0002 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
+ALTER TABLE mooncake_db.PERSON ENGINE=InnoDB;

@@ -8,3 +8,6 @@ CREATE TABLE PERSON_FRIENDS (
 
     PRIMARY KEY (id)
 ) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='Друзья';
+
+-- changeset uoles:TABLE-PERSON_FRIENDS#0002 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
+ALTER TABLE mooncake_db.PERSON_FRIENDS ENGINE=InnoDB;

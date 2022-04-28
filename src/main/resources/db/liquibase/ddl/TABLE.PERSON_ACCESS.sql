@@ -11,3 +11,6 @@ CREATE TABLE PERSON_ACCESS (
 
     PRIMARY KEY (id)
 ) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='Таблица доступов';
+
+-- changeset uoles:TABLE-PERSON_ACCESS#0002 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
+ALTER TABLE mooncake_db.PERSON_ACCESS ENGINE=InnoDB;
