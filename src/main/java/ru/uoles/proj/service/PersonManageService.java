@@ -1,6 +1,5 @@
 package ru.uoles.proj.service;
 
-import ru.uoles.proj.model.Person;
 import ru.uoles.proj.model.PersonSearch;
 
 import java.util.List;

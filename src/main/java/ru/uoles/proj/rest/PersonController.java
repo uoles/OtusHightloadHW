@@ -1,21 +1,18 @@
 package ru.uoles.proj.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.uoles.proj.configs.CustomWebAuthenticationDetails;
 import ru.uoles.proj.model.Person;
 import ru.uoles.proj.model.PersonSearch;
 import ru.uoles.proj.service.PersonFriendsService;
 import ru.uoles.proj.service.PersonManageService;
 import ru.uoles.proj.types.PersonOperationType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static ru.uoles.proj.utils.SecureHelper.getAuthPersonGUID;

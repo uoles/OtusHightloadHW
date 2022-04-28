@@ -1,10 +1,8 @@
 package ru.uoles.proj.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
-import ru.uoles.proj.configs.CustomWebAuthenticationDetails;
 import ru.uoles.proj.database.dao.PersonDao;
 import ru.uoles.proj.model.Person;
 import ru.uoles.proj.model.PersonSearch;
