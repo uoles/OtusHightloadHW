@@ -9,101 +9,82 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 </head>
+
 <body>
+    <td>
+        <form th:action="@{/logout}">
+            <input type="submit" value="Logout" class="button"/>
+        </form>
+    </td>
 
-<td>
-    <form th:action="@{/logout}">
-        <input type="submit" value="Logout" class="button"/>
+    <td>
+        <form th:action="@{/person/main}">
+            <input type="submit" value="User info" class="button"/>
+        </form>
+    </td>
+
+    <br/>
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+    <br/>
+
+    <form th:action="@{/person/search}" th:object="${personSearch}" method="post">
+        <input type="text"
+               placeholder="Enter first name"
+               name="search"
+               th:field="*{firstName}">
+
+        <input type="text"
+               placeholder="Enter second name"
+               name="search"
+               th:field="*{secondName}">
+
+        <p>
+            <input type="submit" value="Search" class="button" />
+        </p>
     </form>
-</td>
 
-<td>
-    <form th:action="@{/person/main}">
-        <input type="submit" value="User info" class="button"/>
-    </form>
-</td>
+    <div th:if="${#lists.isEmpty(persons)}" >
+        List of persons is empty...
+    </div>
 
-<br/>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<br/>
+    <div th:if="${not #lists.isEmpty(persons)}" >
+        <h1>Persons:</h1>
 
-<form th:action="@{/person/search}" th:object="${personSearch}" method="post">
-    <input type="text"
-           placeholder="Enter first name"
-           name="search"
-           th:field="*{firstName}">
-<!--           required-->
+        <table class="objects">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>SecondName</th>
+                    <th>NickName</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Town</th>
+                    <th>Info</th>
+                    <th></th>
+                </tr>
+            </thead>
 
-    <input type="text"
-           placeholder="Enter second name"
-           name="search"
-           th:field="*{secondName}">
-<!--           required-->
+            <tbody>
+                <tr th:each="person : ${persons}">
+                    <td th:text="${person.firstName}">mock</td>
+                    <td th:text="${person.secondName}">mock</td>
+                    <td th:text="${person.nickName}">mock</td>
+                    <td th:text="${person.age}" ></td>
+                    <td th:text="${person.gender}" ></td>
+                    <td th:text="${person.town}" ></td>
+                    <td th:text="${person.info}" ></td>
 
-    <p>
-        <input type="submit" value="Search" class="button" />
-    </p>
-</form>
-
-<!--<form th:action="@{/person/search}" method="get">-->
-<!--    <p>First name: <input type="text" th:field="firstName" /></p>-->
-<!--    <p>Second name: <input type="text" th:field="secondName" /></p>-->
-
-<!--    <p>-->
-<!--        <input type="submit" th:value="Search" class="button" />-->
-<!--    </p>-->
-<!--</form>-->
-
-<div th:if="${#lists.isEmpty(persons)}" >
-    List of persons is empty...
-</div>
-
-<div th:if="${not #lists.isEmpty(persons)}" >
-    <h1>Persons:</h1>
-
-    <table class="objects">
-        <thead>
-            <tr>
-                <th>Surname</th>
-                <th>FirstName</th>
-                <th>nickName</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Town</th>
-                <th>Info</th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr th:each="person : ${persons}">
-                <td th:text="${person.firstName}">mock</td>
-                <td th:text="${person.secondName}">mock</td>
-                <td th:text="${person.nickName}">mock</td>
-                <td th:text="${person.age}" ></td>
-                <td th:text="${person.gender}" ></td>
-                <td th:text="${person.town}" ></td>
-                <td th:text="${person.info}" ></td>
-<!--                <td>-->
-<!--                    <form th:action="@{/person/view}" th:method="get">-->
-<!--                        <p>-->
-<!--                            <input type="hidden" th:name="guid" th:value="${person.guid}" />-->
-<!--                            <input type="submit" value="View" class="button-table"/>-->
-<!--                        </p>-->
-<!--                    </form>-->
-<!--                </td>-->
-                <td>
-                    <form th:action="@{/person/friend/add}" th:method="get">
-                        <p>
-                            <input type="hidden" th:name="guid" th:value="${person.guid}" />
-                            <input type="submit" value="Make friends" class="button-table"/>
-                        </p>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
+                    <td>
+                        <form th:action="@{/person/friend/add}" th:method="get">
+                            <p>
+                                <input type="hidden" th:name="guid" th:value="${person.guid}" />
+                                <input type="submit" value="Make friends" class="button-table"/>
+                            </p>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
