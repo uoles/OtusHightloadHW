@@ -11,57 +11,20 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 </head>
+
 <body>
+    <h1>Mooncake - Social</h1>
 
-<h1>Mooncake - Social</h1>
+    <form th:action="@{/login}" th:method="get">
+        <p>
+            <input type="submit" value="Sign in" class="button"/>
+        </p>
+    </form>
 
-<form th:action="@{/login}" th:method="get">
-    <p>
-        <input type="submit" value="Sign in" class="button"/>
-    </p>
-</form>
-
-<form th:action="@{/registration}" th:method="get">
-    <p>
-        <input type="submit" value="Registration" class="button"/>
-    </p>
-</form>
-
-<!--<ul>-->
-<!--    <li sec:authorize="isAnonymous()"><a class="nav-link" href="/login">Login</a></li>-->
-<!--    <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/logout">Logout</a></li>-->
-<!--    <li sec:authorize="isAuthenticated()">Wellcome, <span sec:authentication="name"></span></li>-->
-<!--</ul>-->
-
-<!--<div>-->
-<!--    <h3>{pageContext.request.userPrincipal.name}</h3>-->
-<!--    <sec:authorize access="!isAuthenticated()">-->
-<!--        <h4><a href="/login">Войти</a></h4>-->
-<!--    </sec:authorize>-->
-<!--    <sec:authorize access="isAuthenticated()">-->
-<!--        <h4><a href="/logout">Выйти</a></h4>-->
-<!--    </sec:authorize>-->
-<!--</div>-->
-
-
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    Text visible only to authenticated users.-->
-<!--</div>-->
-
-<!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
-
-<!--<div sec:authorize="hasRole('ADMIN')">-->
-<!--    This content is only shown to administrators.§§-->
-<!--</div>-->
-
-<!--<div sec:authorize="hasRole('USER')">-->
-<!--    This content is only shown to users.-->
-<!--</div>-->
-
-<!--<span th:text="${#authentication.getPrincipal()}"></span>-->
-
-<br/>
-
-
+    <form th:action="@{/registration}" th:method="get">
+        <p>
+            <input type="submit" value="Registration" class="button"/>
+        </p>
+    </form>
 </body>
 </html>

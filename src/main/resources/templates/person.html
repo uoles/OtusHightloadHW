@@ -9,85 +9,84 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
 </head>
+
 <body>
+    <td>
+        <form th:action="@{/logout}">
+            <input type="submit" value="Logout" class="button"/>
+        </form>
+    </td>
 
-<td>
-    <form th:action="@{/logout}">
-        <input type="submit" value="Logout" class="button"/>
+    <td>
+        <form th:action="@{/person/list}">
+            <input type="submit" value="Persons" class="button"/>
+        </form>
+    </td>
+
+    <br/>
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+    <br/>
+
+    <h1>Person detail:</h1>
+
+    <form th:action="@{/person/update}" th:object="${person}" method="post">
+        <input type="hidden" th:field="*{guid}" />
+
+        <p>Nickname: <input type="text" th:field="*{nickName}" /></p>
+        <p>First name: <input type="text" th:field="*{firstName}" /></p>
+        <p>Second name: <input type="text" th:field="*{secondName}" /></p>
+        <p>Age: <input type="text" th:field="*{age}" /></p>
+        <p>Gender: <input type="text" th:field="*{gender}" /></p>
+        <p>Town: <input type="text" th:field="*{town}" /></p>
+        <p>Info: <input type="text" th:field="*{info}" /></p>
+
+        <p>
+            <input type="submit" th:value="*{operation}" class="button" />
+        </p>
     </form>
-</td>
 
-<td>
-    <form th:action="@{/person/list}">
-        <input type="submit" value="Persons" class="button"/>
-    </form>
-</td>
+    <div th:if="${#lists.isEmpty(persons)}" >
+        List of friends is empty...
+    </div>
 
-<br/>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<br/>
+    <div th:if="${not #lists.isEmpty(persons)}" >
+        <h1>Friends:</h1>
 
-<h1>Person detail:</h1>
+        <table class="objects">
+            <thead>
+                <tr>
+                    <th>Surname</th>
+                    <th>FirstName</th>
+                    <th>Nick</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Town</th>
+                    <th>Info</th>
+                    <th></th>
+                </tr>
+            </thead>
 
-<form th:action="@{/person/update}" th:object="${person}" method="post">
-    <input type="hidden" th:field="*{guid}" />
+            <tbody>
+                <tr th:each="person : ${persons}">
+                    <td th:text="${person.firstName}" ></td>
+                    <td th:text="${person.secondName}" ></td>
+                    <td th:text="${person.nickName}" ></td>
+                    <td th:text="${person.age}" ></td>
+                    <td th:text="${person.gender}" ></td>
+                    <td th:text="${person.town}" ></td>
+                    <td th:text="${person.info}" ></td>
 
-    <p>Nickname: <input type="text" th:field="*{nickName}" /></p>
-    <p>First name: <input type="text" th:field="*{firstName}" /></p>
-    <p>Second name: <input type="text" th:field="*{secondName}" /></p>
-    <p>Age: <input type="text" th:field="*{age}" /></p>
-    <p>Gender: <input type="text" th:field="*{gender}" /></p>
-    <p>Town: <input type="text" th:field="*{town}" /></p>
-    <p>Info: <input type="text" th:field="*{info}" /></p>
-
-    <p>
-        <input type="submit" th:value="*{operation}" class="button" />
-    </p>
-</form>
-
-<div th:if="${#lists.isEmpty(persons)}" >
-    List of friends is empty...
-</div>
-
-<div th:if="${not #lists.isEmpty(persons)}" >
-    <h1>Friends:</h1>
-
-    <table class="objects">
-        <thead>
-            <tr>
-                <th>Surname</th>
-                <th>FirstName</th>
-                <th>Nick</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Town</th>
-                <th>Info</th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr th:each="person : ${persons}">
-                <td th:text="${person.firstName}" ></td>
-                <td th:text="${person.secondName}" ></td>
-                <td th:text="${person.nickName}" ></td>
-                <td th:text="${person.age}" ></td>
-                <td th:text="${person.gender}" ></td>
-                <td th:text="${person.town}" ></td>
-                <td th:text="${person.info}" ></td>
-
-                <td>
-                    <form th:action="@{/person/friend/delete}" method="get">
-                        <p>
-                            <input type="hidden" th:name="guid" th:value="${person.guid}" />
-                            <input type="submit" value="Delete" class="button-table" />
-                        </p>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
+                    <td>
+                        <form th:action="@{/person/friend/delete}" method="get">
+                            <p>
+                                <input type="hidden" th:name="guid" th:value="${person.guid}" />
+                                <input type="submit" value="Delete" class="button-table" />
+                            </p>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
