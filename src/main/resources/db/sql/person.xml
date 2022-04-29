@@ -25,7 +25,7 @@
         from PERSON p
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
         where pf.friend_guid is null and p.guid != :guid
-        limit 100;
+        limit 1000
     </entry>
 
     <entry key="find.friend.persons">
@@ -33,7 +33,7 @@
         from PERSON p
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
         where pf.friend_guid is not null
-        limit 100
+        limit 1000
     </entry>
 
     <entry key="find.persons">
@@ -42,8 +42,9 @@
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
         where pf.friend_guid is null
             and p.guid != :guid
-            and upper(p.first_name) like upper(:first_name)
-            and upper(p.second_name) like upper(:second_name)
-        limit 100;
+            and upper(p.first_name) like :first_name
+            and upper(p.second_name) like :second_name
+        order by p.id
+        limit 1000
     </entry>
 </properties>
