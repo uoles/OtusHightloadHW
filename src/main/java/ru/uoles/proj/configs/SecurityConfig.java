@@ -54,9 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/logout*").not().fullyAuthenticated()
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers(HttpMethod.POST, "/registration/new").not().fullyAuthenticated()
-                //Доступ разрешен всем пользователей
-                .antMatchers("/", "/resources/**").permitAll()
-                // доступ к файлам из ресурсов программы
+                .antMatchers(HttpMethod.GET, "/css/**", "/image/**").permitAll()
+                //Доступ к файлам из ресурсов программы
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()

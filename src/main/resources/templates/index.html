@@ -12,92 +12,48 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css} "/>
 </head>
-<body>
 
-<div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+
+                <div sec:authorize="isAuthenticated()">
+                    <span class="fs-4">Mooncake-social | Login as [[${#httpServletRequest.remoteUser}]]</span>
+                </div>
+
+                <div sec:authorize="!isAuthenticated()">
+                    <span class="fs-4">Mooncake-social</span>
+                </div>
+            </a>
 
             <div sec:authorize="isAuthenticated()">
-                <span class="fs-4">Mooncake-social | Login as [[${#httpServletRequest.remoteUser}]]</span>
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a th:href="@{/person/main}" class="nav-link">User info</a></li>
+                    <li class="nav-item"><a th:href="@{/person/friend/list}" class="nav-link">Friends</a></li>
+                    <li class="nav-item"><a th:href="@{/person/list}" class="nav-link">Persons</a></li>
+                    <li class="nav-item"><a th:href="@{/logout}" class="nav-link">Logout</a></li>
+                </ul>
             </div>
 
             <div sec:authorize="!isAuthenticated()">
-                <span class="fs-4">Mooncake-social</span>
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a th:href="@{/registration}" class="nav-link">Registration</a></li>
+                    <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+                </ul>
             </div>
-        </a>
+        </header>
+    </div>
 
-        <div sec:authorize="isAuthenticated()">
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a th:href="@{/person/main}" class="nav-link">User info</a></li>
-                <li class="nav-item"><a th:href="@{/person/friend/list}" class="nav-link">Friends</a></li>
-                <li class="nav-item"><a th:href="@{/person/list}" class="nav-link">Persons</a></li>
-                <li class="nav-item"><a th:href="@{/logout}" class="nav-link">Logout</a></li>
-            </ul>
-        </div>
+    <div class="container">
+        <main>
+            <img th:src="@{/image/banner.jpg}" class="mx-auto d-block" style="max-width:50%;"/>
+        </main>
+    </div>
 
-        <div sec:authorize="!isAuthenticated()">
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a th:href="@{/registration}" class="nav-link">Registration</a></li>
-                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
-            </ul>
-        </div>
-    </header>
-</div>
-
-<!--<h1>Mooncake - Social</h1>-->
-
-<!--<form th:action="@{/login}" th:method="get">-->
-<!--    <p>-->
-<!--        <input type="submit" value="Sign in" class="button"/>-->
-<!--    </p>-->
-<!--</form>-->
-
-<!--<form th:action="@{/registration}" th:method="get">-->
-<!--    <p>-->
-<!--        <input type="submit" value="Registration" class="button"/>-->
-<!--    </p>-->
-<!--</form>-->
-
-<!--<ul>-->
-<!--    <li sec:authorize="isAnonymous()"><a class="nav-link" href="/login">Login</a></li>-->
-<!--    <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/logout">Logout</a></li>-->
-<!--    <li sec:authorize="isAuthenticated()">Wellcome, <span sec:authentication="name"></span></li>-->
-<!--</ul>-->
-
-<!--<div>-->
-<!--    <h3>{pageContext.request.userPrincipal.name}</h3>-->
-<!--    <sec:authorize access="!isAuthenticated()">-->
-<!--        <h4><a href="/login">Войти</a></h4>-->
-<!--    </sec:authorize>-->
-<!--    <sec:authorize access="isAuthenticated()">-->
-<!--        <h4><a href="/logout">Выйти</a></h4>-->
-<!--    </sec:authorize>-->
-<!--</div>-->
-
-
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    Text visible only to authenticated users.-->
-<!--</div>-->
-
-<!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
-
-<!--<div sec:authorize="hasRole('ADMIN')">-->
-<!--    This content is only shown to administrators.§§-->
-<!--</div>-->
-
-<!--<div sec:authorize="hasRole('USER')">-->
-<!--    This content is only shown to users.-->
-<!--</div>-->
-
-<!--<span th:text="${#authentication.getPrincipal()}"></span>-->
-
-<!--<br/>-->
-
-<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/2.9.3/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
-
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/2.9.3/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
 </body>
 </html>
