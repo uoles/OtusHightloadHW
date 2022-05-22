@@ -33,7 +33,7 @@ public class PersonController {
     @GetMapping("/person/main")
     public String mainPerson(final Model model) {
         Person person = personManageService.findByGuid(getAuthPersonGUID());
-        List<Person> persons = personManageService.findFriendPersons(getAuthPersonGUID());
+        List<Person> persons = personManageService.findFriendPersons(getAuthPersonGUID(), 10);
         model.addAttribute("person", person);
         model.addAttribute("persons", persons);
         return "person";
@@ -64,8 +64,8 @@ public class PersonController {
 
     @GetMapping("/person/list")
     public String getAll(final Model model) {
-        List<Person> authors = personManageService.findNotFriendPersons(getAuthPersonGUID());
-        model.addAttribute("persons", authors);
+        List<Person> persons = personManageService.findNotFriendPersons(getAuthPersonGUID());
+        model.addAttribute("persons", persons);
         return "persons";
     }
 
@@ -75,10 +75,17 @@ public class PersonController {
         return "redirect:/person/list";
     }
 
+    @GetMapping("/person/friend/list")
+    public String addFriend(final Model model) {
+        List<Person> persons = personManageService.findFriendPersons(getAuthPersonGUID(), 100);
+        model.addAttribute("persons", persons);
+        return "friends";
+    }
+
     @GetMapping("/person/friend/delete")
     public String deleteFriend(@RequestParam("guid") String friendGuid) {
         personFriendsService.deleteFriend(getAuthPersonGUID(), friendGuid);
-        return "redirect:/person/main";
+        return "redirect:/person/friend/list";
     }
 
     private String getAuthPersonGUID() {

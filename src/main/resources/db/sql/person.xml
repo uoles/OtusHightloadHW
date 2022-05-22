@@ -25,7 +25,7 @@
         from PERSON p
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
         where pf.friend_guid is null and p.guid != :guid
-        limit 100;
+        limit 100
     </entry>
 
     <entry key="find.friend.persons">
@@ -33,6 +33,6 @@
         from PERSON p
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
         where pf.friend_guid is not null
-        limit 100
+        limit :cnt
     </entry>
 </properties>
