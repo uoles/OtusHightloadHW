@@ -26,27 +26,133 @@
     </header>
 </div>
 
-<h1>New person registration</h1>
+<div class="container">
+    <main>
+            <div class="col">
+                <form class="needs-validation" th:action="@{/registration/new}" th:method="post" novalidate>
+                    <div class="row g-3 justify-content-center">
+                        <input type="hidden" th:field="${person.guid}" />
+                        <span th:text="*{authorization.error}"></span>
 
-<form th:action="@{/registration/new}" th:method="post">
-    <span th:text="*{authorization.error}"></span>
-    <p>Login: <input type="text" th:field="${authorization.login}" /></p>
-    <p>Password: <input type="text" th:field="${authorization.password}" /></p>
+                        <div class="col-8">
+                            <h4 class="mb-3">New person registration</h4>
+                        </div>
+                    </div>
 
-    <input type="hidden" th:field="${person.guid}" />
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-4">
+                            <label for="login" class="form-label">Login</label>
+                            <input type="text" class="form-control" id="login" th:field="${authorization.login}" required>
+                            <div class="invalid-feedback">
+                                Valid login is required.
+                            </div>
+                        </div>
 
-    <p>Nickname: <input type="text" th:field="${person.nickName}" /></p>
-    <p>First name: <input type="text" th:field="${person.firstName}" /></p>
-    <p>Second name: <input type="text" th:field="${person.secondName}" /></p>
-    <p>Age: <input type="text" th:field="${person.age}" /></p>
-    <p>Gender: <input type="text" th:field="${person.gender}" /></p>
-    <p>Town: <input type="text" th:field="${person.town}" /></p>
-    <p>Info: <input type="text" th:field="${person.info}" /></p>
+                        <div class="col-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="text" class="form-control" id="password" th:field="${authorization.password}" required>
+                            <div class="invalid-feedback">
+                                Valid password is required.
+                            </div>
+                        </div>
+                    </div>
 
-    <p>
-        <input type="submit" th:value="Registration" class="button" />
-    </p>
-</form>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-8">
+                            <label for="nickname" class="form-label">Nickname</label>
+                            <input type="text" class="form-control" id="nickname" th:field="${person.nickName}" required>
+                            <div class="invalid-feedback">
+                                Valid nickname is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-4">
+                            <label for="firstName" class="form-label">First name</label>
+                            <input type="text" class="form-control" id="firstName" th:field="${person.firstName}" required>
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <label for="secondName" class="form-label">Second name</label>
+                            <input type="text" class="form-control" id="secondName" th:field="${person.secondName}" required>
+                            <div class="invalid-feedback">
+                                Valid second name is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-2">
+                            <label for="age" class="form-label">Age</label>
+                            <input type="text" class="form-control" id="age" th:field="${person.age}" required>
+                            <div class="invalid-feedback">
+                                Valid age is required.
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <input type="text" class="form-control" id="gender" th:field="${person.gender}" required>
+                            <div class="invalid-feedback">
+                                Valid gender is required.
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <label for="town" class="form-label">Town</label>
+                            <input type="text" class="form-control" id="town" th:field="${person.town}" required>
+                            <div class="invalid-feedback">
+                                Valid town is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-8">
+                            <label for="info" class="form-label">Age</label>
+                            <input type="text" class="form-control" id="info" th:field="${person.info}" required>
+                            <div class="invalid-feedback">
+                                Valid info is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-8">
+                            <hr class="my-4">
+
+                            <button class="w-100 btn btn-primary btn-lg" type="submit" th:text="Registration"></button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+    </main>
+</div>
+
+<!--<form th:action="@{/registration/new}" th:method="post">-->
+<!--    <span th:text="*{authorization.error}"></span>-->
+<!--    <p>Login: <input type="text" th:field="${authorization.login}" /></p>-->
+<!--    <p>Password: <input type="text" th:field="${authorization.password}" /></p>-->
+
+<!--    <input type="hidden" th:field="${person.guid}" />-->
+
+<!--    <p>Nickname: <input type="text" th:field="${person.nickName}" /></p>-->
+<!--    <p>First name: <input type="text" th:field="${person.firstName}" /></p>-->
+<!--    <p>Second name: <input type="text" th:field="${person.secondName}" /></p>-->
+<!--    <p>Age: <input type="text" th:field="${person.age}" /></p>-->
+<!--    <p>Gender: <input type="text" th:field="${person.gender}" /></p>-->
+<!--    <p>Town: <input type="text" th:field="${person.town}" /></p>-->
+<!--    <p>Info: <input type="text" th:field="${person.info}" /></p>-->
+
+<!--    <p>-->
+<!--        <input type="submit" th:value="Registration" class="button" />-->
+<!--    </p>-->
+<!--</form>-->
 
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/2.9.3/umd/popper.min.js}"></script>
