@@ -10,13 +10,17 @@
     </entry>
 
     <entry key="add.person">
-        insert into PERSON(guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town)
-        values(:guid, NOW(), null, 1, :first_name, :second_name, :nick_name, :info, :age, :gender, :town)
+        insert into
+            PERSON(guid, registration_date, dissolution_date, permissions_id, first_name, second_name, nick_name, info, age, gender, town,
+                upper_first_name, upper_second_name)
+            values(:guid, NOW(), null, 1, :first_name, :second_name, :nick_name, :info, :age, :gender, :town,
+                :upper_first_name, :upper_second_name)
     </entry>
 
     <entry key="update.person">
         update PERSON
-        set first_name=:first_name, second_name=:second_name, nick_name=:nick_name, info=:info, age=:age, gender=:gender, town=:town
+        set first_name=:first_name, second_name=:second_name, nick_name=:nick_name, info=:info, age=:age, gender=:gender, town=:town,
+            upper_first_name=:upper_first_name, upper_second_name=:upper_second_name
         where guid=:guid
     </entry>
 
@@ -42,8 +46,8 @@
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
         where pf.friend_guid is null
             and p.guid != :guid
-            and upper(p.first_name) like :first_name
-            and upper(p.second_name) like :second_name
+            and p.upper_first_name like :upper_first_name
+            and p.upper_second_name like :upper_second_name
         order by p.id
         limit 1000
     </entry>

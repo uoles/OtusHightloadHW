@@ -20,3 +20,9 @@ CREATE TABLE PERSON (
 
 -- changeset uoles:TABLE-PERSON#0002 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
 ALTER TABLE mooncake_db.PERSON ENGINE=InnoDB;
+
+-- changeset uoles:TABLE-PERSON#0003 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
+ALTER TABLE mooncake_db.PERSON add column upper_first_name varchar(30);
+
+-- changeset uoles:TABLE-PERSON#0004 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
+ALTER TABLE mooncake_db.PERSON add column upper_second_name varchar(30);
