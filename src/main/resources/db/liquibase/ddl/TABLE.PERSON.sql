@@ -26,3 +26,9 @@ ALTER TABLE mooncake_db.PERSON add column upper_first_name varchar(30);
 
 -- changeset uoles:TABLE-PERSON#0004 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
 ALTER TABLE mooncake_db.PERSON add column upper_second_name varchar(30);
+
+-- changeset uoles:TABLE-PERSON#0005 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
+ALTER TABLE mooncake_db.PERSON drop column upper_first_name;
+
+-- changeset uoles:TABLE-PERSON#0006 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
+ALTER TABLE mooncake_db.PERSON drop column upper_second_name;

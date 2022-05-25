@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement()
-                .maximumSessions(3)
+                .maximumSessions(1000)
                 .and()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
             .and()

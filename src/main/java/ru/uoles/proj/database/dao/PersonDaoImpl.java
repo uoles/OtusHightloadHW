@@ -105,8 +105,8 @@ public class PersonDaoImpl implements PersonDao<Person> {
     private Map<String, Object> personSearchToParams(final PersonSearch personSearch, final String guid) {
         Map<String, Object> params = new HashMap<>();
         params.put("guid", guid);
-        params.put("upper_first_name", String.join("", personSearch.getFirstName().toUpperCase()));
-        params.put("upper_second_name", String.join("", personSearch.getSecondName().toUpperCase()));
+        params.put("first_name", String.join("", personSearch.getFirstName()));
+        params.put("second_name", String.join("", personSearch.getSecondName()));
         return params;
     }
 
@@ -127,9 +127,6 @@ public class PersonDaoImpl implements PersonDao<Person> {
         params.put("age", person.getAge());
         params.put("gender", person.getGender());
         params.put("town", person.getTown());
-
-        params.put("upper_first_name", person.getFirstName().toUpperCase());
-        params.put("upper_second_name", person.getSecondName().toUpperCase());
         return params;
     }
 }
