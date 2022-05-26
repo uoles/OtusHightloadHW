@@ -11,3 +11,6 @@ CREATE TABLE PERSON_FRIENDS (
 
 -- changeset uoles:TABLE-PERSON_FRIENDS#0002 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
 ALTER TABLE mooncake_db.PERSON_FRIENDS ENGINE=InnoDB;
+
+-- changeset uoles:TABLE-PERSON_FRIENDS#0003 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
+CREATE UNIQUE INDEX IDX_PERSON_FRIENDS_GUID ON PERSON_FRIENDS (friend_guid, person_guid, id);

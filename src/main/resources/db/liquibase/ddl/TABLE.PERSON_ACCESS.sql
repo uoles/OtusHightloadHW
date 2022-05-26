@@ -14,3 +14,6 @@ CREATE TABLE PERSON_ACCESS (
 
 -- changeset uoles:TABLE-PERSON_ACCESS#0002 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
 ALTER TABLE mooncake_db.PERSON_ACCESS ENGINE=InnoDB;
+
+-- changeset uoles:TABLE-PERSON_ACCESS#0003 logicalFilePath:path-independent runOnChange:false splitStatements:true endDelimiter:/
+CREATE UNIQUE INDEX IDX_PERSON_ACCESS_GUID ON PERSON_ACCESS (login);
