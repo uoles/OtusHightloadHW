@@ -8,7 +8,7 @@
 - фильтрация ответов приложения https://www.quora.com/How-do-I-verify-if-the-API-is-throwing-200-OK-as-a-status-code-in-JMeter
 
 ### Команда для запуска теста
-jmeter -n -t test-plan.jmx -l test-results.jtl
+> jmeter -n -t test-plan.jmx -l test-results.jtl
 
 ### Команда для генерации HTML отчета
-jmeter -g test-results.jtl -o report-folder
+> jmeter -g test-results.jtl -o report-folder
