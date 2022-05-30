@@ -7,4 +7,4 @@ RUN apt-get install nano mc
 
 RUN mkdir /var/log/mysql
 
-EXPOSE 6603
+EXPOSE 3306
