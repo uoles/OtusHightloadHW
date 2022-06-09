@@ -85,10 +85,10 @@ public class PersonDaoImpl implements PersonDao<Person> {
     }
 
     @Override
-    public List<Person> findFriendPersons(final String guid) {
+    public List<Person> findFriendPersons(final String guid, final int count) {
         return namedParameterJdbcTemplate.query(
                 FIND_FRIEND_PERSONS,
-                guidToParams(guid),
+                guidToParams(guid, count),
                 new PersonMapper()
         );
     }
@@ -113,6 +113,13 @@ public class PersonDaoImpl implements PersonDao<Person> {
     private Map<String, Object> guidToParams(final String guid) {
         Map<String, Object> params = new HashMap<>();
         params.put("guid", guid);
+        return params;
+    }
+
+    private Map<String, Object> guidToParams(final String guid, final int count) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("guid", guid);
+        params.put("cnt", count);
         return params;
     }
 

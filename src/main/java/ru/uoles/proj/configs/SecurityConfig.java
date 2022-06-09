@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement()
-                .maximumSessions(1000)
+                .maximumSessions(3)
                 .and()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
             .and()
@@ -54,9 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/logout*").not().fullyAuthenticated()
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers(HttpMethod.POST, "/registration/new").not().fullyAuthenticated()
-                //Доступ разрешен всем пользователей
-                .antMatchers("/", "/resources/**").permitAll()
-                // доступ к файлам из ресурсов программы
+                .antMatchers(HttpMethod.GET, "/css/**", "/image/**").permitAll()
+                //Доступ к файлам из ресурсов программы
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
@@ -65,12 +64,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationDetailsSource(authenticationDetailsSource())
                 .usernameParameter("login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/person/list")
+                .defaultSuccessUrl("/person/main")
                 .permitAll()
             .and()
             .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/")
                 .permitAll()
                 //Инвалидируем сессию при логауте
                 .invalidateHttpSession(true)

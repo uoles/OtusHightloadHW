@@ -19,7 +19,7 @@ public interface PersonManageService<Person> {
 
     List<Person> findNotFriendPersons(final String guid);
 
-    List<Person> findFriendPersons(final String guid);
+    List<Person> findFriendPersons(final String guid, final int count);
 
     List<Person> findPersons(final PersonSearch personSearch);
 }

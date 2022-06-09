@@ -49,8 +49,8 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     }
 
     @Override
-    public List<Person> findFriendPersons(final String guid) {
-        return personDao.findFriendPersons(guid);
+    public List<Person> findFriendPersons(final String guid, final int count) {
+        return personDao.findFriendPersons(guid, count);
     }
 
     @Override

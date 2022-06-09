@@ -1,12 +1,14 @@
 package ru.uoles.proj.rest;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.uoles.proj.configs.CustomWebAuthenticationDetails;
 import ru.uoles.proj.model.Person;
 import ru.uoles.proj.model.PersonSearch;
 import ru.uoles.proj.service.PersonFriendsService;
@@ -34,7 +36,7 @@ public class PersonController {
     @GetMapping("/person/main")
     public String mainPerson(final Model model) {
         Person person = personManageService.findByGuid(getAuthPersonGUID());
-        List<Person> persons = personManageService.findFriendPersons(getAuthPersonGUID());
+        List<Person> persons = personManageService.findFriendPersons(getAuthPersonGUID(), 10);
         model.addAttribute("person", person);
         model.addAttribute("persons", persons);
         return "person";
@@ -67,9 +69,16 @@ public class PersonController {
     public String getAll(final Model model) {
         List<Person> persons = personManageService.findNotFriendPersons(getAuthPersonGUID());
         model.addAttribute("persons", persons);
-        model.addAttribute("personSearch", new PersonSearch("", ""));
         return "persons";
     }
+
+//    @GetMapping("/person/list")
+//    public String getAll(final Model model) {
+//        List<Person> persons = personManageService.findNotFriendPersons(getAuthPersonGUID());
+//        model.addAttribute("persons", persons);
+//        model.addAttribute("personSearch", new PersonSearch("", ""));
+//        return "persons";
+//    }
 
     @GetMapping("/person/friend/add")
     public String addFriend(@RequestParam("guid") String friendGuid) {
@@ -77,10 +86,17 @@ public class PersonController {
         return "redirect:/person/list";
     }
 
+    @GetMapping("/person/friend/list")
+    public String addFriend(final Model model) {
+        List<Person> persons = personManageService.findFriendPersons(getAuthPersonGUID(), 100);
+        model.addAttribute("persons", persons);
+        return "friends";
+    }
+
     @GetMapping("/person/friend/delete")
     public String deleteFriend(@RequestParam("guid") String friendGuid) {
         personFriendsService.deleteFriend(getAuthPersonGUID(), friendGuid);
-        return "redirect:/person/main";
+        return "redirect:/person/friend/list";
     }
 
     @PostMapping("/person/search")
@@ -89,5 +105,11 @@ public class PersonController {
         model.addAttribute("persons", result);
         model.addAttribute("personSearch", personSearch);
         return "persons";
+    }
+
+    private String getAuthPersonGUID() {
+        CustomWebAuthenticationDetails details =
+                (CustomWebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        return details.getPersonGuid();
     }
 }
