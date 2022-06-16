@@ -43,8 +43,11 @@ public class PersonDaoImpl implements PersonDao<Person> {
     @Value("${find.friend.persons}")
     private String FIND_FRIEND_PERSONS;
 
-    @Value("${find.persons}")
-    private String FIND_PERSONS;
+    @Value("${find.persons.by.firstname.secondname}")
+    private String FIND_PERSONS_BY_FIRSTNAME_SECONDNAME;
+
+    @Value("${find.friend.persons.by.firstname.secondname}")
+    private String FIND_FRIEND_PERSONS_BY_FIRSTNAME_SECONDNAME;
 
     @Override
     public Person findByGuid(final String guid) {
@@ -76,10 +79,10 @@ public class PersonDaoImpl implements PersonDao<Person> {
     }
 
     @Override
-    public List<Person> findNotFriendPersons(final String guid) {
+    public List<Person> findNotFriendPersons(final String guid, final int count) {
         return namedParameterJdbcTemplate.query(
                 FIND_NOT_FRIEND_PERSONS,
-                guidToParams(guid),
+                guidToParams(guid, count),
                 new PersonMapper()
         );
     }
@@ -94,19 +97,29 @@ public class PersonDaoImpl implements PersonDao<Person> {
     }
 
     @Override
-    public List<Person> findPersons(final PersonSearch personSearch, final String guid) {
+    public List<Person> findPersons(final PersonSearch personSearch, final String guid, final int count) {
         return namedParameterJdbcTemplate.query(
-                FIND_PERSONS,
-                personSearchToParams(personSearch, guid),
+                FIND_PERSONS_BY_FIRSTNAME_SECONDNAME,
+                personSearchToParams(personSearch, guid, count),
                 new PersonMapper()
         );
     }
 
-    private Map<String, Object> personSearchToParams(final PersonSearch personSearch, final String guid) {
+    @Override
+    public List<Person> findFriendPersons(final PersonSearch personSearch, final String guid, final int count) {
+        return namedParameterJdbcTemplate.query(
+                FIND_FRIEND_PERSONS_BY_FIRSTNAME_SECONDNAME,
+                personSearchToParams(personSearch, guid, count),
+                new PersonMapper()
+        );
+    }
+
+    private Map<String, Object> personSearchToParams(final PersonSearch personSearch, final String guid, final int count) {
         Map<String, Object> params = new HashMap<>();
         params.put("guid", guid);
         params.put("first_name", String.join("", personSearch.getFirstName()));
         params.put("second_name", String.join("", personSearch.getSecondName()));
+        params.put("cnt", count);
         return params;
     }
 

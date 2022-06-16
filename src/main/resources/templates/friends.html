@@ -38,6 +38,32 @@
         <div class="col">
                 <div class="row g-3 justify-content-center">
 
+                    <form class="needs-validation" th:action="@{/person/friend/search}" th:object="${personSearch}" th:method="post" novalidate>
+                        <div class="row g-3">
+                            <div class="col-auto">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control" placeholder="First name" th:field="*{firstName}" required>
+                                    <div class="invalid-feedback">
+                                        Valid first name is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control" placeholder="Second name" th:field="*{secondName}" required>
+                                    <div class="invalid-feedback">
+                                        Valid second name is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-auto">
+                                <button class="btn btn-primary" type="submit" th:text="Search"></button>
+                            </div>
+                        </div>
+                    </form>
+
                     <div th:if="${#lists.isEmpty(persons)}" >
                         <h4 class="mb-3">List of friends is empty...</h4>
                     </div>

@@ -8,6 +8,7 @@ import ru.uoles.proj.model.Person;
 import ru.uoles.proj.model.PersonSearch;
 import ru.uoles.proj.types.PersonOperationType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,8 +45,8 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     }
 
     @Override
-    public List<Person> findNotFriendPersons(final String guid) {
-        return personDao.findNotFriendPersons(guid);
+    public List<Person> findNotFriendPersons(final String guid, final int count) {
+        return personDao.findNotFriendPersons(guid, count);
     }
 
     @Override
@@ -54,12 +55,21 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     }
 
     @Override
-    public List<Person> findPersons(final PersonSearch personSearch) {
-        List<Person> result = null;
+    public List<Person> findPersons(final PersonSearch personSearch, final int count) {
+        List<Person> result = new ArrayList<>();
         if ( StringUtils.isEmpty(personSearch.getFirstName()) && StringUtils.isEmpty(personSearch.getSecondName()) ) {
-            result = personDao.findNotFriendPersons(getAuthPersonGUID());
+            result = personDao.findNotFriendPersons(getAuthPersonGUID(), count);
         } else {
-            result = personDao.findPersons(personSearch, getAuthPersonGUID());
+            result = personDao.findPersons(personSearch, getAuthPersonGUID(), count);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Person> findFriends(final PersonSearch personSearch, final int count) {
+        List<Person> result = new ArrayList<>();
+        if ( StringUtils.isEmpty(personSearch.getFirstName()) && StringUtils.isEmpty(personSearch.getSecondName()) ) {
+            result = personDao.findFriendPersons(personSearch, getAuthPersonGUID(), count);
         }
         return result;
     }

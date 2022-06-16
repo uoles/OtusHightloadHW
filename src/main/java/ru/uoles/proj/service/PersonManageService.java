@@ -17,9 +17,11 @@ public interface PersonManageService<Person> {
 
     Person updatePerson(final Person person);
 
-    List<Person> findNotFriendPersons(final String guid);
+    List<Person> findNotFriendPersons(final String guid, final int count);
 
     List<Person> findFriendPersons(final String guid, final int count);
 
-    List<Person> findPersons(final PersonSearch personSearch);
+    List<Person> findPersons(final PersonSearch personSearch, final int count);
+
+    List<Person> findFriends(final PersonSearch personSearch, final int count);
 }

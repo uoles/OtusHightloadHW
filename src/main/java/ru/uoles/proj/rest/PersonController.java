@@ -65,20 +65,20 @@ public class PersonController {
         return "person";
     }
 
-    @GetMapping("/person/list")
-    public String getAll(final Model model) {
-        List<Person> persons = personManageService.findNotFriendPersons(getAuthPersonGUID());
-        model.addAttribute("persons", persons);
-        return "persons";
-    }
-
 //    @GetMapping("/person/list")
 //    public String getAll(final Model model) {
 //        List<Person> persons = personManageService.findNotFriendPersons(getAuthPersonGUID());
 //        model.addAttribute("persons", persons);
-//        model.addAttribute("personSearch", new PersonSearch("", ""));
 //        return "persons";
 //    }
+
+    @GetMapping("/person/list")
+    public String getAll(final Model model) {
+        List<Person> persons = personManageService.findNotFriendPersons(getAuthPersonGUID(), 100);
+        model.addAttribute("persons", persons);
+        model.addAttribute("personSearch", new PersonSearch("", ""));
+        return "persons";
+    }
 
     @GetMapping("/person/friend/add")
     public String addFriend(@RequestParam("guid") String friendGuid) {
@@ -87,9 +87,18 @@ public class PersonController {
     }
 
     @GetMapping("/person/friend/list")
-    public String addFriend(final Model model) {
+    public String friendList(final Model model) {
         List<Person> persons = personManageService.findFriendPersons(getAuthPersonGUID(), 100);
         model.addAttribute("persons", persons);
+        model.addAttribute("personSearch", new PersonSearch("", ""));
+        return "friends";
+    }
+
+    @PostMapping("/person/friend/search")
+    public String friendSearch(@ModelAttribute PersonSearch personSearch, final Model model) {
+        List<Person> persons = personManageService.findFriends(personSearch, 100);
+        model.addAttribute("persons", persons);
+        model.addAttribute("personSearch", new PersonSearch("", ""));
         return "friends";
     }
 
@@ -101,7 +110,7 @@ public class PersonController {
 
     @PostMapping("/person/search")
     public String searchPerson(@ModelAttribute PersonSearch personSearch, final Model model) {
-        List<Person> result = personManageService.findPersons(personSearch);
+        List<Person> result = personManageService.findPersons(personSearch, 100);
         model.addAttribute("persons", result);
         model.addAttribute("personSearch", personSearch);
         return "persons";

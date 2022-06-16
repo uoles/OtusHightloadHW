@@ -26,7 +26,7 @@
         from PERSON p
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
         where pf.friend_guid is null and p.guid != :guid
-        limit 1000
+        limit :cnt
     </entry>
 
     <entry key="find.friend.persons">
@@ -34,10 +34,10 @@
         from PERSON p
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
         where pf.friend_guid is not null
-        limit 1000
+        limit :cnt
     </entry>
 
-    <entry key="find.persons">
+    <entry key="find.persons.by.firstname.secondname">
         select p.guid, p.registration_date, p.dissolution_date, p.permissions_id, p.first_name, p.second_name, p.nick_name, p.info, p.age, p.gender, p.town
         from PERSON p
         left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
@@ -46,6 +46,17 @@
             and p.first_name like :first_name
             and p.second_name like :second_name
         order by p.id
-        limit 1000
+        limit :cnt
+    </entry>
+
+    <entry key="find.friend.persons.by.firstname.secondname">
+        select p.guid, p.registration_date, p.dissolution_date, p.permissions_id, p.first_name, p.second_name, p.nick_name, p.info, p.age, p.gender, p.town
+        from PERSON p
+        left join PERSON_FRIENDS pf on pf.friend_guid = p.guid and pf.person_guid = :guid
+        where pf.friend_guid is not null
+            and p.first_name like :first_name
+            and p.second_name like :second_name
+        order by p.id
+        limit :cnt
     </entry>
 </properties>

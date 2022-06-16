@@ -19,9 +19,11 @@ public interface PersonDao<Person> {
 
     void updatePerson(final Person person);
 
-    List<Person> findNotFriendPersons(final String guid);
+    List<Person> findNotFriendPersons(final String guid, final int count);
 
     List<Person> findFriendPersons(final String guid, final int count);
 
-    List<Person> findPersons(final PersonSearch personSearch, final String guid);
+    List<Person> findPersons(final PersonSearch personSearch, final String guid, final int count);
+
+    List<Person> findFriendPersons(final PersonSearch personSearch, final String guid, final int count);
 }
