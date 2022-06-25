@@ -58,17 +58,12 @@ public class PersonController {
 
     @PostMapping("/person/update")
     public String addPerson(@ModelAttribute Person person, final Model model) {
-        Person result = personManageService.updatePerson(person);
-        model.addAttribute("person", result);
+        Person result_person = personManageService.updatePerson(person);
+        List<Person> persons = personManageService.findFriendPersons(getAuthPersonGUID(), 10);
+        model.addAttribute("person", result_person);
+        model.addAttribute("persons", persons);
         return "person";
     }
-
-//    @GetMapping("/person/list")
-//    public String getAll(final Model model) {
-//        List<Person> persons = personManageService.findNotFriendPersons(getAuthPersonGUID());
-//        model.addAttribute("persons", persons);
-//        return "persons";
-//    }
 
     @GetMapping("/person/list")
     public String getAll(final Model model) {
