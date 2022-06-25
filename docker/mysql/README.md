@@ -27,4 +27,5 @@
     -v <Путь на локальной машине>:/etc/mysql \
     -d uoles/mysql
 
-
+### Инфо
+Настройка репликации https://www.k-max.name/linux/replikaciya-mysql-master-slave/ 

@@ -17,8 +17,6 @@ import ru.uoles.proj.types.PersonOperationType;
 
 import java.util.List;
 
-import static ru.uoles.proj.utils.SecureHelper.getAuthPersonGUID;
-
 /**
  * OtusHightloadHW
  * Created by IntelliJ IDEA.

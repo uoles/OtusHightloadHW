@@ -1,9 +1,9 @@
 package ru.uoles.proj.database.dao;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -25,7 +25,6 @@ import java.util.Map;
  * Time: 11:39
  */
 @Repository
-@RequiredArgsConstructor
 @PropertySource(name="sqlPersonAccess", value="classpath:db/sql/person-access.xml")
 public class PersonAccessDaoImpl implements PersonAccessDao<PersonAccess> {
 
@@ -37,6 +36,10 @@ public class PersonAccessDaoImpl implements PersonAccessDao<PersonAccess> {
 
     @Value("${add.new.credentials}")
     private String ADD_NEW_CREDENTIALS;
+
+    public PersonAccessDaoImpl(@Qualifier("mainNamedParameterJdbcTemplate") NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     @Override
     public PersonAccess findByLogin(final String login) {

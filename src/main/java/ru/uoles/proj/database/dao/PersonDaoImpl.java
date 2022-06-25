@@ -1,7 +1,7 @@
 package ru.uoles.proj.database.dao;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,7 +22,6 @@ import java.util.Map;
  * Time: 22:00
  */
 @Repository
-@RequiredArgsConstructor
 @PropertySource(name="sqlPerson", value="classpath:/db/sql/person.xml")
 public class PersonDaoImpl implements PersonDao<Person> {
 
@@ -48,6 +47,10 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Value("${find.friend.persons.by.firstname.secondname}")
     private String FIND_FRIEND_PERSONS_BY_FIRSTNAME_SECONDNAME;
+
+    public PersonDaoImpl(@Qualifier("mainNamedParameterJdbcTemplate") NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     @Override
     public Person findByGuid(final String guid) {

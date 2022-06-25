@@ -1,6 +1,6 @@
 package ru.uoles.proj.database.dao;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,7 +19,6 @@ import java.util.Objects;
  * Time: 16:16
  */
 @Repository
-@RequiredArgsConstructor
 @PropertySource(name="sqlPersonFriends", value="classpath:/db/sql/person-friends.xml")
 public class PersonFriendsDaoImpl implements PersonFriendsDao<Person> {
 
@@ -33,6 +32,10 @@ public class PersonFriendsDaoImpl implements PersonFriendsDao<Person> {
 
     @Value("${delete.friend}")
     private String DELETE_FRIEND;
+
+    public PersonFriendsDaoImpl(@Qualifier("mainNamedParameterJdbcTemplate") NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     @Override
     public boolean findFriend(final String personGuid, final String friendGuid) {
