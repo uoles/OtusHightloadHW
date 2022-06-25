@@ -37,7 +37,7 @@ public class PersonAccessDaoImpl implements PersonAccessDao<PersonAccess> {
     @Value("${add.new.credentials}")
     private String ADD_NEW_CREDENTIALS;
 
-    public PersonAccessDaoImpl(@Qualifier("mainNamedParameterJdbcTemplate") NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public PersonAccessDaoImpl(@Qualifier("masterNamedParameterJdbcTemplate") NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 

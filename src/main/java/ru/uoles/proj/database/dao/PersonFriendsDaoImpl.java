@@ -33,7 +33,7 @@ public class PersonFriendsDaoImpl implements PersonFriendsDao<Person> {
     @Value("${delete.friend}")
     private String DELETE_FRIEND;
 
-    public PersonFriendsDaoImpl(@Qualifier("mainNamedParameterJdbcTemplate") NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public PersonFriendsDaoImpl(@Qualifier("masterNamedParameterJdbcTemplate") NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 

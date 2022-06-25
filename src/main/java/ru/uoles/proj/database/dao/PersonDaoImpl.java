@@ -25,7 +25,8 @@ import java.util.Map;
 @PropertySource(name="sqlPerson", value="classpath:/db/sql/person.xml")
 public class PersonDaoImpl implements PersonDao<Person> {
 
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate masterNamedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate slaveNamedParameterJdbcTemplate;
 
     @Value("${find.by.guid}")
     private String FIND_BY_GUID;
@@ -48,13 +49,17 @@ public class PersonDaoImpl implements PersonDao<Person> {
     @Value("${find.friend.persons.by.firstname.secondname}")
     private String FIND_FRIEND_PERSONS_BY_FIRSTNAME_SECONDNAME;
 
-    public PersonDaoImpl(@Qualifier("mainNamedParameterJdbcTemplate") NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    public PersonDaoImpl(
+            @Qualifier("masterNamedParameterJdbcTemplate") NamedParameterJdbcTemplate masterNamedParameterJdbcTemplate,
+            @Qualifier("slaveNamedParameterJdbcTemplate") NamedParameterJdbcTemplate slaveNamedParameterJdbcTemplate
+    ) {
+        this.masterNamedParameterJdbcTemplate = masterNamedParameterJdbcTemplate;
+        this.slaveNamedParameterJdbcTemplate = slaveNamedParameterJdbcTemplate;
     }
 
     @Override
     public Person findByGuid(final String guid) {
-        List<Person> result = namedParameterJdbcTemplate.query(
+        List<Person> result = masterNamedParameterJdbcTemplate.query(
                 FIND_BY_GUID,
                 guidToParams(guid),
                 new PersonMapper()
@@ -67,7 +72,7 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Override
     public void addPerson(final Person person) {
-        namedParameterJdbcTemplate.update(
+        masterNamedParameterJdbcTemplate.update(
                 ADD_PERSON,
                 personToParams(person)
         );
@@ -75,7 +80,7 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Override
     public void updatePerson(final Person person) {
-        namedParameterJdbcTemplate.update(
+        masterNamedParameterJdbcTemplate.update(
                 UPDATE_PERSON,
                 personToParams(person)
         );
@@ -83,7 +88,7 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Override
     public List<Person> findNotFriendPersons(final String guid, final int count) {
-        return namedParameterJdbcTemplate.query(
+        return masterNamedParameterJdbcTemplate.query(
                 FIND_NOT_FRIEND_PERSONS,
                 guidToParams(guid, count),
                 new PersonMapper()
@@ -92,7 +97,7 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Override
     public List<Person> findFriendPersons(final String guid, final int count) {
-        return namedParameterJdbcTemplate.query(
+        return masterNamedParameterJdbcTemplate.query(
                 FIND_FRIEND_PERSONS,
                 guidToParams(guid, count),
                 new PersonMapper()
@@ -101,7 +106,7 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Override
     public List<Person> findPersons(final PersonSearch personSearch, final String guid, final int count) {
-        return namedParameterJdbcTemplate.query(
+        return slaveNamedParameterJdbcTemplate.query(
                 FIND_PERSONS_BY_FIRSTNAME_SECONDNAME,
                 personSearchToParams(personSearch, guid, count),
                 new PersonMapper()
@@ -110,7 +115,7 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Override
     public List<Person> findFriendPersons(final PersonSearch personSearch, final String guid, final int count) {
-        return namedParameterJdbcTemplate.query(
+        return slaveNamedParameterJdbcTemplate.query(
                 FIND_FRIEND_PERSONS_BY_FIRSTNAME_SECONDNAME,
                 personSearchToParams(personSearch, guid, count),
                 new PersonMapper()

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -21,38 +22,39 @@ import javax.sql.DataSource;
 public class JdbcConfig {
 
     @Bean
-    @ConfigurationProperties("spring.datasource.main")
-    public DataSourceProperties mainDataSourceProperties() {
+    @ConfigurationProperties("spring.datasource.master")
+    public DataSourceProperties masterDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
-    @ConfigurationProperties("spring.datasource.search")
-    public DataSourceProperties searchDataSourceProperties() {
+    @ConfigurationProperties("spring.datasource.slave")
+    public DataSourceProperties slaveDataSourceProperties() {
         return new DataSourceProperties();
     }
 
-    @Bean
-    public DataSource dataSource() {
-        return mainDataSourceProperties()
+    @Bean(name = "dataSource")
+    @Primary
+    public DataSource masterDataSource() {
+        return masterDataSourceProperties()
                 .initializeDataSourceBuilder()
                 .build();
     }
 
     @Bean
-    public DataSource searchDataSource() {
-        return searchDataSourceProperties()
+    public DataSource slaveDataSource() {
+        return slaveDataSourceProperties()
                 .initializeDataSourceBuilder()
                 .build();
     }
 
     @Bean
-    public NamedParameterJdbcTemplate mainNamedParameterJdbcTemplate(@Qualifier("dataSource") DataSource dataSource) {
+    public NamedParameterJdbcTemplate masterNamedParameterJdbcTemplate(@Qualifier("dataSource") DataSource dataSource) {
         return new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource));
     }
 
     @Bean
-    public NamedParameterJdbcTemplate searchNamedParameterJdbcTemplate(@Qualifier("searchDataSource") DataSource dataSource) {
+    public NamedParameterJdbcTemplate slaveNamedParameterJdbcTemplate(@Qualifier("slaveDataSource") DataSource dataSource) {
         return new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource));
     }
 }
