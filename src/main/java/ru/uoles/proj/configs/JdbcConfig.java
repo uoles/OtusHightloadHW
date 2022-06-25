@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
 
+//TODO Сделать менеджер для создания NamedParameterJdbcTemplate для разных реплик.
+//TODO Настройки подключения добавлять списком <master|slave, spring.datasource>
 /**
  * OtusHightloadHW
  * Created by IntelliJ IDEA.
@@ -28,8 +30,14 @@ public class JdbcConfig {
     }
 
     @Bean
-    @ConfigurationProperties("spring.datasource.slave")
-    public DataSourceProperties slaveDataSourceProperties() {
+    @ConfigurationProperties("spring.datasource.slave1")
+    public DataSourceProperties slave1DataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean
+    @ConfigurationProperties("spring.datasource.slave2")
+    public DataSourceProperties slave2DataSourceProperties() {
         return new DataSourceProperties();
     }
 
@@ -42,8 +50,15 @@ public class JdbcConfig {
     }
 
     @Bean
-    public DataSource slaveDataSource() {
-        return slaveDataSourceProperties()
+    public DataSource slave1DataSource() {
+        return slave1DataSourceProperties()
+                .initializeDataSourceBuilder()
+                .build();
+    }
+
+    @Bean
+    public DataSource slave2DataSource() {
+        return slave2DataSourceProperties()
                 .initializeDataSourceBuilder()
                 .build();
     }
@@ -54,7 +69,12 @@ public class JdbcConfig {
     }
 
     @Bean
-    public NamedParameterJdbcTemplate slaveNamedParameterJdbcTemplate(@Qualifier("slaveDataSource") DataSource dataSource) {
+    public NamedParameterJdbcTemplate slave1NamedParameterJdbcTemplate(@Qualifier("slave1DataSource") DataSource dataSource) {
+        return new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource));
+    }
+
+    @Bean
+    public NamedParameterJdbcTemplate slave2NamedParameterJdbcTemplate(@Qualifier("slave1DataSource") DataSource dataSource) {
         return new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource));
     }
 }

@@ -26,7 +26,8 @@ import java.util.Map;
 public class PersonDaoImpl implements PersonDao<Person> {
 
     private final NamedParameterJdbcTemplate masterNamedParameterJdbcTemplate;
-    private final NamedParameterJdbcTemplate slaveNamedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate slave1NamedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate slave2NamedParameterJdbcTemplate;
 
     @Value("${find.by.guid}")
     private String FIND_BY_GUID;
@@ -51,10 +52,12 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     public PersonDaoImpl(
             @Qualifier("masterNamedParameterJdbcTemplate") NamedParameterJdbcTemplate masterNamedParameterJdbcTemplate,
-            @Qualifier("slaveNamedParameterJdbcTemplate") NamedParameterJdbcTemplate slaveNamedParameterJdbcTemplate
+            @Qualifier("slave1NamedParameterJdbcTemplate") NamedParameterJdbcTemplate slave1NamedParameterJdbcTemplate,
+            @Qualifier("slave2NamedParameterJdbcTemplate") NamedParameterJdbcTemplate slave2NamedParameterJdbcTemplate
     ) {
         this.masterNamedParameterJdbcTemplate = masterNamedParameterJdbcTemplate;
-        this.slaveNamedParameterJdbcTemplate = slaveNamedParameterJdbcTemplate;
+        this.slave1NamedParameterJdbcTemplate = slave1NamedParameterJdbcTemplate;
+        this.slave2NamedParameterJdbcTemplate = slave2NamedParameterJdbcTemplate;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Override
     public List<Person> findPersons(final PersonSearch personSearch, final String guid, final int count) {
-        return slaveNamedParameterJdbcTemplate.query(
+        return slave1NamedParameterJdbcTemplate.query(
                 FIND_PERSONS_BY_FIRSTNAME_SECONDNAME,
                 personSearchToParams(personSearch, guid, count),
                 new PersonMapper()
@@ -115,7 +118,7 @@ public class PersonDaoImpl implements PersonDao<Person> {
 
     @Override
     public List<Person> findFriendPersons(final PersonSearch personSearch, final String guid, final int count) {
-        return slaveNamedParameterJdbcTemplate.query(
+        return slave2NamedParameterJdbcTemplate.query(
                 FIND_FRIEND_PERSONS_BY_FIRSTNAME_SECONDNAME,
                 personSearchToParams(personSearch, guid, count),
                 new PersonMapper()

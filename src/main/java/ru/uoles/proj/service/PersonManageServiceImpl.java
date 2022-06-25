@@ -68,7 +68,9 @@ public class PersonManageServiceImpl implements PersonManageService<Person> {
     @Override
     public List<Person> findFriends(final PersonSearch personSearch, final int count) {
         List<Person> result = new ArrayList<>();
-        if ( !StringUtils.isEmpty(personSearch.getFirstName()) && !StringUtils.isEmpty(personSearch.getSecondName()) ) {
+        if ( StringUtils.isEmpty(personSearch.getFirstName()) && StringUtils.isEmpty(personSearch.getSecondName()) ) {
+            result = personDao.findFriendPersons(getAuthPersonGUID(), count);
+        } else {
             result = personDao.findFriendPersons(personSearch, getAuthPersonGUID(), count);
         }
         return result;
