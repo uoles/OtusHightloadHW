@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>SQL requests to table NEWS</comment>
+
+    <entry key="find.all.news.by.person.guid">
+        select *
+        from NEWS n
+        where n.person_guid = :person_guid
+    </entry>
+
+    <entry key="add.news">
+        insert into NEWS(id, guid, news_date_time, person_guid, news_body)
+        values(:guid, NOW(), :person_guid, :news_body)
+    </entry>
+
+</properties>

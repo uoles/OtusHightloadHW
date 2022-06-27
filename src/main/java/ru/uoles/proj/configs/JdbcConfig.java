@@ -1,6 +1,7 @@
 package ru.uoles.proj.configs;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,15 @@ import javax.sql.DataSource;
 @Configuration
 public class JdbcConfig {
 
+    @Value("${spring.datasource.enable.local}")
+    private boolean isEnableLocal;
+
+    @Bean
+    @ConfigurationProperties("spring.datasource.local")
+    public DataSourceProperties localDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
     @Bean
     @ConfigurationProperties("spring.datasource.master")
     public DataSourceProperties masterDataSourceProperties() {
@@ -44,23 +54,35 @@ public class JdbcConfig {
     @Bean(name = "dataSource")
     @Primary
     public DataSource masterDataSource() {
-        return masterDataSourceProperties()
-                .initializeDataSourceBuilder()
-                .build();
+        return isEnableLocal
+                ? localDataSourceProperties()
+                    .initializeDataSourceBuilder()
+                    .build()
+                : masterDataSourceProperties()
+                    .initializeDataSourceBuilder()
+                    .build();
     }
 
     @Bean
     public DataSource slave1DataSource() {
-        return slave1DataSourceProperties()
-                .initializeDataSourceBuilder()
-                .build();
+        return isEnableLocal
+                ? localDataSourceProperties()
+                    .initializeDataSourceBuilder()
+                    .build()
+                : slave1DataSourceProperties()
+                    .initializeDataSourceBuilder()
+                    .build();
     }
 
     @Bean
     public DataSource slave2DataSource() {
-        return slave2DataSourceProperties()
-                .initializeDataSourceBuilder()
-                .build();
+        return isEnableLocal
+                ? localDataSourceProperties()
+                    .initializeDataSourceBuilder()
+                    .build()
+                : slave2DataSourceProperties()
+                    .initializeDataSourceBuilder()
+                    .build();
     }
 
     @Bean
