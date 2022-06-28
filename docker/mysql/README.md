@@ -29,3 +29,13 @@
 
 ### Инфо
 Настройка репликации https://www.k-max.name/linux/replikaciya-mysql-master-slave/ 
+
+### Проблема с liquibase "Waiting for changelog lock...."
+Инфо: https://stevenschwenke.de/multipleWaitingForChangelogLockLiquibaseLockedYourDatabase
+> SELECT * FROM DATABASECHANGELOGLOCK; 
+> 
+> UPDATE DATABASECHANGELOGLOCK \
+SET locked=0, lockgranted=null, lockedby=null \
+WHERE id=1; 
+> 
+> commit;

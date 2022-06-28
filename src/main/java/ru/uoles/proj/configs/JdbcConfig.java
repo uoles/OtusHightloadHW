@@ -1,7 +1,6 @@
 package ru.uoles.proj.configs;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,15 +23,6 @@ import javax.sql.DataSource;
 @Configuration
 public class JdbcConfig {
 
-    @Value("${spring.datasource.enable.local}")
-    private boolean isEnableLocal;
-
-    @Bean
-    @ConfigurationProperties("spring.datasource.local")
-    public DataSourceProperties localDataSourceProperties() {
-        return new DataSourceProperties();
-    }
-
     @Bean
     @ConfigurationProperties("spring.datasource.master")
     public DataSourceProperties masterDataSourceProperties() {
@@ -54,33 +44,24 @@ public class JdbcConfig {
     @Bean(name = "dataSource")
     @Primary
     public DataSource masterDataSource() {
-        return isEnableLocal
-                ? localDataSourceProperties()
-                    .initializeDataSourceBuilder()
-                    .build()
-                : masterDataSourceProperties()
+        System.out.println("----- Master DB url: " + masterDataSourceProperties().getUrl());
+        return masterDataSourceProperties()
                     .initializeDataSourceBuilder()
                     .build();
     }
 
     @Bean
     public DataSource slave1DataSource() {
-        return isEnableLocal
-                ? localDataSourceProperties()
-                    .initializeDataSourceBuilder()
-                    .build()
-                : slave1DataSourceProperties()
+        System.out.println("----- Slave 1 DB url: " + slave1DataSourceProperties().getUrl());
+        return slave1DataSourceProperties()
                     .initializeDataSourceBuilder()
                     .build();
     }
 
     @Bean
     public DataSource slave2DataSource() {
-        return isEnableLocal
-                ? localDataSourceProperties()
-                    .initializeDataSourceBuilder()
-                    .build()
-                : slave2DataSourceProperties()
+        System.out.println("----- Slave 2 DB url: " + slave2DataSourceProperties().getUrl());
+        return slave2DataSourceProperties()
                     .initializeDataSourceBuilder()
                     .build();
     }

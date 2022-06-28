@@ -5,6 +5,9 @@ MySQL 8.
 
 URL для входа: http://localhost:8081/
 
+Запуск с указанием хостов БД (по умолчанию localhost:6603) :
+> spring-boot:run -Dspring-boot.run.arguments="--db.master=host:port --db.slave1=host:port --db.slave2=host:port" -f pom.xml
+
 ---
 ### Создание БД:
 > docker run -p 6603:3306 --name social-mysql \
