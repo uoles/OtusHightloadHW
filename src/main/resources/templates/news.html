@@ -40,69 +40,27 @@
         <div class="col">
             <div class="row g-3 justify-content-center">
 
-                <form class="needs-validation" th:action="@{/person/friend/search}" th:object="${personSearch}" th:method="post" novalidate>
-                    <div class="row g-3">
-                        <div class="col-auto">
-                            <div class="form-outline">
-                                <input type="text" class="form-control" placeholder="First name" th:field="*{firstName}" required>
-                                <div class="invalid-feedback">
-                                    Valid first name is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-auto">
-                            <div class="form-outline">
-                                <input type="text" class="form-control" placeholder="Second name" th:field="*{secondName}" required>
-                                <div class="invalid-feedback">
-                                    Valid second name is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-auto">
-                            <button class="btn btn-primary" type="submit" th:text="Search"></button>
-                        </div>
-                    </div>
-                </form>
-
-                <div th:if="${#lists.isEmpty(persons)}" >
-                    <h4 class="mb-3">List of friends is empty...</h4>
+                <div th:if="${#lists.isEmpty(news)}" >
+                    <h4 class="mb-3">List of news is empty...</h4>
                 </div>
 
-                <div th:if="${not #lists.isEmpty(persons)}" >
-                    <h4 class="mb-3">Friends:</h4>
+                <div th:if="${not #lists.isEmpty(news)}" >
+                    <h4 class="mb-3">News:</h4>
 
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Surname</th>
-                            <th>FirstName</th>
-                            <th>nickName</th>
-                            <th>Age</th>
-                            <th>Gender</th>
-                            <th>Town</th>
-                            <th>Info</th>
-                            <th>Action</th>
+                            <th>News time</th>
+                            <th>Person name</th>
+                            <th>Post body</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        <tr th:each="person : ${persons}">
-                            <td th:text="${person.firstName}">mock</td>
-                            <td th:text="${person.secondName}">mock</td>
-                            <td th:text="${person.nickName}">mock</td>
-                            <td th:text="${person.age}" ></td>
-                            <td th:text="${person.gender}" ></td>
-                            <td th:text="${person.town}" ></td>
-                            <td th:text="${person.info}" ></td>
-
-                            <td>
-                                <form th:action="@{/person/friend/delete}" th:method="get">
-                                    <input type="hidden" th:name="guid" th:value="${person.guid}" />
-                                    <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm" />
-                                </form>
-                            </td>
+                        <tr th:each="item : ${news}">
+                            <td th:text="${item.newsDateTime}"></td>
+                            <td th:text="${item.personFullName}"></td>
+                            <td th:text="${item.newsBody}"></td>
                         </tr>
                         </tbody>
                     </table>

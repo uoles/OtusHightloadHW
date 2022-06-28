@@ -18,10 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NewsServiceImpl implements NewsService<News> {
 
-    private NewsDao<News> newsDao;
+    private final NewsDao<News> newsDao;
 
     @Override
     public List<News> getNews(final String personGuid, final int count) {
-        return null;
+        return newsDao.getNews(personGuid, count);
     }
 }

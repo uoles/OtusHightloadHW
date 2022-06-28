@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.uoles.proj.model.News;
 import ru.uoles.proj.model.Person;
 import ru.uoles.proj.model.PersonSearch;
 import ru.uoles.proj.service.NewsService;
@@ -23,13 +24,12 @@ import static ru.uoles.proj.utils.SecureHelper.getAuthPersonGUID;
 @RequiredArgsConstructor
 public class NewsController {
 
-    private NewsService newsService;
+    private final NewsService<News> newsService;
 
     @GetMapping("/news/list")
     public String getAll(final Model model) {
-        List<Person> persons = newsService.getNews(getAuthPersonGUID(), 100);
-        model.addAttribute("persons", persons);
-        model.addAttribute("personSearch", new PersonSearch("", ""));
-        return "persons";
+        List<News> news = newsService.getNews(getAuthPersonGUID(), 100);
+        model.addAttribute("news", news);
+        return "news";
     }
 }

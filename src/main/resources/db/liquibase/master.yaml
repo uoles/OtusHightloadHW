@@ -24,6 +24,10 @@ databaseChangeLog:
       file: ddl/TABLE.SPRING_SESSION_ATTRIBUTES.sql
       relativeToChangelogFile: true
 
+  - include:
+      file: ddl/TABLE.NEWS.sql
+      relativeToChangelogFile: true
+
 #  - include:
 #      file: dml/001_update_data_person.sql
 #      relativeToChangelogFile: true

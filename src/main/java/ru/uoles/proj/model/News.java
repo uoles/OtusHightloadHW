@@ -21,15 +21,17 @@ public class News {
     private String guid;
     private Date newsDateTime;
     private String personGuid;
+    private String personFullName;
     private String newsBody;
 
     public News() {
     }
 
-    public News(String guid, Date newsDateTime, String personGuid, String newsBody) {
+    public News(String guid, Date newsDateTime, String personGuid, String personFullName, String newsBody) {
         this.guid = guid;
         this.newsDateTime = newsDateTime;
         this.personGuid = personGuid;
+        this.personFullName = personFullName;
         this.newsBody = newsBody;
     }
 }
