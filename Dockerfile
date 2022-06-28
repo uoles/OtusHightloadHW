@@ -4,4 +4,4 @@ MAINTAINER Maksim Kulikov <max.uoles@rambler.ru>
 ADD ./target/original-mooncake-social.jar original-mooncake-social.jar
 
 EXPOSE 8081
-CMD ["java","-jar","original-mooncake-social.jar","--db.master=localhost:6603 --db.slave1=localhost:6603 --db.slave2=localhost:6603"]
+CMD java -jar original-mooncake-social.jar --db.master=localhost:6603 --db.slave1=localhost:6603 --db.slave2=localhost:6603
