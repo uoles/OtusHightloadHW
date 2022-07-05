@@ -3,6 +3,7 @@ services:
   mysql-master1:
     image: uoles/mysql
     container_name: social-mysql-haproxy-dc-1
+    network_mode: "host"
     restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     ports: 
@@ -21,6 +22,7 @@ services:
   mysql-master2:
     image: uoles/mysql
     container_name: social-mysql-haproxy-dc-2
+    network_mode: "host"
     restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     ports: 
@@ -39,16 +41,12 @@ services:
   haproxy:
     image: haproxytech/haproxy-ubuntu:latest
     container_name: social-haproxy
+    network_mode: "host"
     restart: unless-stopped
-    command: --sysctl net.ipv4.ip_unprivileged_port_start=0
-    ports: 
+    ports:
       - "2999:2999"
       - "6610:6610"
     cap_add:
       - all
     volumes:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-    networks:
-      default:
-        aliases:
-          - mysql
