@@ -1,0 +1,54 @@
+version: '3.9'
+services:
+  mysql-master1:
+    image: uoles/mysql
+    container_name: social-mysql-haproxy-1
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    ports: 
+      - "6611:3306"
+    cap_add:
+      - all
+    volumes:
+      - /home/uoles/project/mysql_db_haproxy_1:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD:8b03005ef88c426498523bbe0757d101
+    networks:
+      default:
+        aliases:
+          - mysql
+
+  mysql-master2:
+    image: uoles/mysql
+    container_name: social-mysql-haproxy-1
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    ports: 
+      - "6612:3306"
+    cap_add: 
+      - all
+    volumes:
+      - /home/uoles/project/mysql_db_haproxy_2:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD:8b03005ef88c426498523bbe0757d101
+    networks:
+      default:
+        aliases:
+          - mysql
+
+  haproxy:
+    image: haproxy:2.3
+    container_name: social-haproxy
+    restart: unless-stopped
+    command: --network=host
+    ports: 
+      - "2999:2999"
+      - "6610:3306"
+    cap_add:
+      - all
+    volumes:
+      - /home/uoles/project/haproxy_conf/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    networks:
+      default:
+        aliases:
+          - mysql
