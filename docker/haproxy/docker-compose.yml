@@ -3,8 +3,8 @@ services:
   mysql-master1:
     image: uoles/mysql
     container_name: mysql-1
-    restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
+    env_file: .env
     ports:
       - "6611:3306"
     cap_add:
@@ -13,7 +13,7 @@ services:
       - /home/uoles/project/mysql_db_haproxy_1:/var/lib/mysql
       - /home/uoles/project/mysql_db_haproxy_1_conf:/etc/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD:8b03005ef88c426498523bbe0757d101
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
     networks:
       default:
         aliases:
@@ -22,8 +22,8 @@ services:
   mysql-master2:
     image: uoles/mysql
     container_name: mysql-2
-    restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
+    env_file: .env
     ports:
       - "6612:3306"
     cap_add: 
@@ -32,7 +32,7 @@ services:
       - /home/uoles/project/mysql_db_haproxy_2:/var/lib/mysql
       - /home/uoles/project/mysql_db_haproxy_2_conf:/etc/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD:8b03005ef88c426498523bbe0757d101
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
     networks:
       default:
         aliases:
@@ -41,7 +41,6 @@ services:
   haproxy:
     image: haproxytech/haproxy-ubuntu:latest
     container_name: haproxy
-    restart: unless-stopped
     ports:
       - "2999:2999"
       - "3306:3306"
