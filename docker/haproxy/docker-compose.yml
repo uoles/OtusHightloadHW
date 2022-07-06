@@ -1,17 +1,17 @@
-version: '3.9'
+version: '3.7'
 services:
   mysql-master1:
     image: uoles/mysql
-    container_name: social-mysql-haproxy-dc-1
-    network_mode: "host"
+    container_name: mysql-1
     restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
-    ports: 
+    ports:
       - "6611:3306"
     cap_add:
       - all
     volumes:
       - /home/uoles/project/mysql_db_haproxy_1:/var/lib/mysql
+      - /home/uoles/project/mysql_db_haproxy_1_conf:/etc/mysql
     environment:
       - MYSQL_ROOT_PASSWORD:8b03005ef88c426498523bbe0757d101
     networks:
@@ -21,16 +21,16 @@ services:
 
   mysql-master2:
     image: uoles/mysql
-    container_name: social-mysql-haproxy-dc-2
-    network_mode: "host"
+    container_name: mysql-2
     restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
-    ports: 
+    ports:
       - "6612:3306"
     cap_add: 
       - all
     volumes:
       - /home/uoles/project/mysql_db_haproxy_2:/var/lib/mysql
+      - /home/uoles/project/mysql_db_haproxy_2_conf:/etc/mysql
     environment:
       - MYSQL_ROOT_PASSWORD:8b03005ef88c426498523bbe0757d101
     networks:
@@ -40,13 +40,16 @@ services:
 
   haproxy:
     image: haproxytech/haproxy-ubuntu:latest
-    container_name: social-haproxy
-    network_mode: "host"
+    container_name: haproxy
     restart: unless-stopped
     ports:
       - "2999:2999"
-      - "6610:6610"
+      - "3306:3306"
     cap_add:
       - all
     volumes:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    networks:
+      default:
+        aliases:
+          - mysql
