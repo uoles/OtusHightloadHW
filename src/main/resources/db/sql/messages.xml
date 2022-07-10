@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>SQL requests to table MESSAGES</comment>
+
+    <entry key="find.all.news.by.person.guid">
+<!--        select n.guid, n.news_date_time, n.person_guid, p.first_name, p.second_name, n.news_body-->
+<!--        from NEWS n-->
+<!--        inner join PERSON_FRIENDS pf on pf.friend_guid = n.person_guid-->
+<!--        inner join PERSON p on p.guid = n.person_guid-->
+<!--        where pf.person_guid = :person_guid-->
+<!--        order by n.news_date_time desc-->
+<!--        limit :cnt-->
+    </entry>
+
+    <entry key="add.news">
+<!--        insert into NEWS(guid, news_date_time, person_guid, news_body)-->
+<!--        values(:guid, NOW(), :person_guid, :news_body)-->
+    </entry>
+
+</properties>

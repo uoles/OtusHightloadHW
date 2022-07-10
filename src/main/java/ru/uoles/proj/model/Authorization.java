@@ -1,7 +1,6 @@
 package ru.uoles.proj.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
