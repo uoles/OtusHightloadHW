@@ -20,7 +20,7 @@ public class Message {
 
     private String guid;
     private Date dateTime;
-    private String gialogGuid;
+    private String dialogGuid;
     private String senderGuid;
     private String recipientGuid;
     private String message;
@@ -28,10 +28,10 @@ public class Message {
     public Message() {
     }
 
-    public Message(String guid, Date dateTime, String gialogGuid, String senderGuid, String recipientGuid, String message) {
+    public Message(String guid, Date dateTime, String dialogGuid, String senderGuid, String recipientGuid, String message) {
         this.guid = guid;
         this.dateTime = dateTime;
-        this.gialogGuid = gialogGuid;
+        this.dialogGuid = dialogGuid;
         this.senderGuid = senderGuid;
         this.recipientGuid = recipientGuid;
         this.message = message;

@@ -3,6 +3,8 @@ package ru.uoles.proj.model;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.Date;
+
 /**
  * OtusHightloadHW
  * Created by IntelliJ IDEA.
