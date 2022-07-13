@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>SQL requests to table DIALOGS</comment>
+
+    <entry key="get.all.dialogs">
+        select d.guid, d.person_guid, d.recipient_guid, d.recipient_full_name
+        from DIALOGS d
+        where d.person_guid = :person_guid
+        limit :cnt
+    </entry>
+
+    <entry key="get.dialog.by.recipient.guid">
+        select d.guid, d.person_guid, d.recipient_guid, d.recipient_full_name
+        from DIALOGS d
+        where d.person_guid = :person_guid and d.recipient_guid = :recipient_guid
+    </entry>
+
+    <entry key="add.dialog">
+        insert into DIALOGS(guid, person_guid, recipient_guid, recipient_full_name)
+        values(:guid, :person_guid, :recipient_guid, :recipient_full_name)
+    </entry>
+</properties>

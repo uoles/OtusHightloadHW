@@ -1,0 +1,19 @@
+package ru.uoles.proj.service;
+
+import java.util.List;
+
+/**
+ * OtusHightloadHW
+ * Created by IntelliJ IDEA.
+ * Developer: Maksim Kulikov
+ * Date: 13.07.2022
+ * Time: 0:05
+ */
+public interface DialogService<Dialog> {
+
+    List<Dialog> getAllDialogs(final String personGuid, final int count);
+
+    Dialog getDialog(final String personGuid, final String recipientGuid);
+
+    Dialog addDialog(final String personGuid, final String recipientGuid);
+}
