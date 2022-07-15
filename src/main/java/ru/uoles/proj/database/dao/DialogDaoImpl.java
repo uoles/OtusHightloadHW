@@ -29,8 +29,11 @@ public class DialogDaoImpl implements DialogDao<Dialog> {
     @Value("${get.all.dialogs}")
     private String GET_ALL_DIALOGS;
 
-    @Value("${get.dialog.by.recipient.guid}")
-    private String GET_DIALOG_BY_RECIPIENT_GUID;
+    @Value("${get.dialog.by.guid}")
+    private String GET_DIALOG_BY_GUID;
+
+    @Value("${get.dialog.by.person.guids}")
+    private String GET_DIALOG_BY_PERSON_GUIDS;
 
     @Value("${add.dialog}")
     private String ADD_DIALOG;
@@ -49,10 +52,23 @@ public class DialogDaoImpl implements DialogDao<Dialog> {
     }
 
     @Override
-    public Dialog getDialog(final String personGuid, final String recipientGuid) {
+    public Dialog findDialogByPersonGuids(final String personGuid, final String recipientGuid) {
         List<Dialog> result = namedParameterJdbcTemplate.query(
-                GET_DIALOG_BY_RECIPIENT_GUID,
+                GET_DIALOG_BY_PERSON_GUIDS,
                 guidsToParams(personGuid, recipientGuid),
+                new DialogMapper()
+        );
+
+        return (CollectionUtils.isNotEmpty(result))
+                ? result.get(0)
+                : null;
+    }
+
+    @Override
+    public Dialog getDialogByGuid(final String guid) {
+        List<Dialog> result = namedParameterJdbcTemplate.query(
+                GET_DIALOG_BY_GUID,
+                guidToParams(guid),
                 new DialogMapper()
         );
 
@@ -82,6 +98,12 @@ public class DialogDaoImpl implements DialogDao<Dialog> {
         Map<String, Object> params = new HashMap<>();
         params.put("person_guid", personGuid);
         params.put("recipient_guid", recipientGuid);
+        return params;
+    }
+
+    private Map<String, Object> guidToParams(final String guid) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("guid", guid);
         return params;
     }
 

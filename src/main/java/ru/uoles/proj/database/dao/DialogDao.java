@@ -13,7 +13,9 @@ public interface DialogDao<Dialog> {
 
     List<Dialog> getAllDialogs(final String personGuid, final int count);
 
-    Dialog getDialog(final String personGuid, final String recipientGuid);
+    Dialog findDialogByPersonGuids(final String personGuid, final String recipientGuid);
+
+    Dialog getDialogByGuid(final String guid);
 
     void addDialog(final Dialog dialog);
 }

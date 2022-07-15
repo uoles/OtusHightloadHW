@@ -3,7 +3,7 @@ package ru.uoles.proj.model;
 import lombok.Data;
 import lombok.ToString;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * OtusHightloadHW
@@ -20,6 +20,7 @@ public class Dialog {
     private String personGuid;
     private String recipientGuid;
     private String recipientFullName;
+    private List<Message> messages;
 
     public Dialog() {
     }

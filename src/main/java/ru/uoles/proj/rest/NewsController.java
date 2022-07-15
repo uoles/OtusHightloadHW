@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.uoles.proj.model.News;
-import ru.uoles.proj.model.Person;
-import ru.uoles.proj.model.PersonSearch;
 import ru.uoles.proj.service.NewsService;
 
 import java.util.List;

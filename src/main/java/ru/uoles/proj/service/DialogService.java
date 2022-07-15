@@ -1,5 +1,7 @@
 package ru.uoles.proj.service;
 
+import ru.uoles.proj.model.Message;
+
 import java.util.List;
 
 /**
@@ -13,7 +15,9 @@ public interface DialogService<Dialog> {
 
     List<Dialog> getAllDialogs(final String personGuid, final int count);
 
-    Dialog getDialog(final String personGuid, final String recipientGuid);
+    Dialog getDialog(final String guid);
 
     Dialog addDialog(final String personGuid, final String recipientGuid);
+
+    void addMessage(final Message message);
 }

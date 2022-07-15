@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.uoles.proj.model.Dialog;
 import ru.uoles.proj.model.Message;
-import ru.uoles.proj.model.Person;
 import ru.uoles.proj.service.DialogService;
-import ru.uoles.proj.utils.DatabaseHelper;
 
 import java.util.List;
 
+import static ru.uoles.proj.utils.DatabaseHelper.getNewMessageTemplate;
 import static ru.uoles.proj.utils.SecureHelper.getAuthPersonGUID;
 
 /**
@@ -38,40 +37,30 @@ public class DialogController {
     }
 
     @GetMapping("/dialog/open")
-    public String getDialog(@RequestParam("guid") String recipientGuid, final Model model) {
-        Dialog dialog = dialogService.getDialog(getAuthPersonGUID(), recipientGuid);
-
-        Message newMessage = new Message();
-        newMessage.setGuid(DatabaseHelper.getNewGUID());
-        newMessage.setDialogGuid(dialog.getGuid());
+    public String getDialog(@RequestParam("guid") String guid, final Model model) {
+        Dialog dialog = dialogService.getDialog(guid);
+        String personGuid = getAuthPersonGUID();
 
         model.addAttribute("dialog", dialog);
-        model.addAttribute("message", newMessage);
+        model.addAttribute("message", getNewMessageTemplate(dialog, personGuid));
+        model.addAttribute("personGuid", personGuid);
         return "dialog";
     }
 
     @GetMapping("/dialog/create")
     public String createDialog(@RequestParam("guid") String recipientGuid, final Model model) {
-        Dialog dialog = dialogService.addDialog(getAuthPersonGUID(), recipientGuid);
-
-        Message newMessage = new Message();
-        newMessage.setGuid(DatabaseHelper.getNewGUID());
-        newMessage.setDialogGuid(dialog.getGuid());
+        String personGuid = getAuthPersonGUID();
+        Dialog dialog = dialogService.addDialog(personGuid, recipientGuid);
 
         model.addAttribute("dialog", dialog);
-        model.addAttribute("message", newMessage);
+        model.addAttribute("message", getNewMessageTemplate(dialog, personGuid));
+        model.addAttribute("personGuid", personGuid);
         return "dialog";
     }
 
-    @PostMapping("/dialog/post")
-    public String addMessage(@ModelAttribute Dialog dialog, @ModelAttribute Message message, final Model model) {
-        //TODO { добавление нового сообщения }
-        Message newMessage = new Message();
-        newMessage.setGuid(DatabaseHelper.getNewGUID());
-        newMessage.setDialogGuid(dialog.getGuid());
-
-        model.addAttribute("dialog", dialog);
-        model.addAttribute("message", newMessage);
-        return "dialog";
+    @PostMapping("/dialog/add/message")
+    public String addMessage(@ModelAttribute Message message) {
+        dialogService.addMessage(message);
+        return String.join("", "redirect:/dialog/open?guid=", message.getDialogGuid());
     }
 }

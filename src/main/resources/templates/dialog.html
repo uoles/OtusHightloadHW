@@ -33,14 +33,69 @@
 <div class="container">
     <main>
         <div class="col">
-            <form class="needs-validation" th:action="@{/dialog/post}" th:method="post" novalidate>
+            <form class="needs-validation" th:action="@{/dialog/add/message}" th:method="post" novalidate>
                 <div class="row g-3 justify-content-center">
                     <div class="col-sm-12">
-                        <label for="exampleFormControlTextarea1" class="form-label">Dialog with user</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="20"></textarea>
+                        <label for="dialog-field" class="form-label" th:text="'Dialog with user: ' + ${dialog.recipientFullName}"></label>
+
+                            <div id="dialog-field" class="pt-3 pe-3"
+                                 data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px;">
+
+                                <div th:each="message : ${dialog.messages}">
+                                    <div th:if="${message.senderGuid == personGuid}">
+<!--                                        <p th:case="${message.senderGuid}">-->
+                                            <div class="d-flex flex-row justify-content-end">
+                                                <div>
+                                                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary"
+                                                       th:text="${message.message}"></p>
+                                                    <p class="small me-3 mb-3 rounded-3 text-muted"
+                                                       th:text="${#dates.format(message.dateTime, 'dd-MM-yyyy HH:mm:ss')}"></p>
+                                                </div>
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                                     alt="avatar 1" style="width: 45px; height: 100%;">
+                                            </div>
+<!--                                        </p>-->
+                                    </div>
+
+                                    <div th:if="${message.recipientGuid == personGuid}">
+<!--                                        <p th:case="${message.recipientGuid}">-->
+                                            <div class="d-flex flex-row justify-content-start">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                                                     alt="avatar 1" style="width: 45px; height: 100%;">
+                                                <div>
+                                                    <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;"
+                                                       th:text="${message.message}"></p>
+                                                    <p class="small ms-3 mb-3 rounded-3 text-muted float-end"
+                                                       th:text="${#dates.format(message.dateTime, 'dd-MM-yyyy HH:mm:ss')}"></p>
+                                                </div>
+                                            </div>
+<!--                                        </p>-->
+                                    </div>
+
+                                </div>
+
+<!--                                <div th:each="message : ${dialog.messages}">-->
+<!--                                    <div class="d-flex flex-row justify-content-end">-->
+<!--                                        <div>-->
+<!--                                            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary" th:text="${message.message}"></p>-->
+<!--                                            <p class="small me-3 mb-3 rounded-3 text-muted"-->
+<!--                                               th:text="${#dates.format(message.dateTime, 'dd-MM-yyyy HH:mm:ss')}"></p>-->
+<!--                                        </div>-->
+<!--                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"-->
+<!--                                             alt="avatar 1" style="width: 45px; height: 100%;">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
+                            </div>
                     </div>
 
                     <div class="col-sm-10">
+                        <input type="hidden" th:field="*{message.guid}"/>
+                        <input type="hidden" th:field="*{message.dialogGuid}"/>
+                        <input type="hidden" th:field="*{message.senderGuid}"/>
+                        <input type="hidden" th:field="*{message.recipientGuid}"/>
+
                         <input class="form-control" type="text" placeholder="Введи сообщение" aria-label="default input example"
                             th:field="${message.message}">
                     </div>
