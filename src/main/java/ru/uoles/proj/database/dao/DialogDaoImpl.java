@@ -88,6 +88,7 @@ public class DialogDaoImpl implements DialogDao<Dialog> {
     private Map<String, Object> dialogToParams(final Dialog dialog) {
         Map<String, Object> params = new HashMap<>();
         params.put("guid", dialog.getGuid());
+        params.put("dialog_guid", dialog.getDialogGuid());
         params.put("person_guid", dialog.getPersonGuid());
         params.put("recipient_guid", dialog.getRecipientGuid());
         params.put("recipient_full_name", dialog.getRecipientFullName());

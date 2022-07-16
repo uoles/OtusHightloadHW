@@ -21,16 +21,12 @@ public final class DatabaseHelper {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    public static Message getNewMessageTemplate(final Dialog dialog, final String personGuid) {
+    public static Message getNewMessageTemplate(final Dialog dialog) {
         Message message = new Message();
         message.setGuid(DatabaseHelper.getNewGUID());
-        message.setDialogGuid(dialog.getGuid());
-        message.setSenderGuid(personGuid);
-        message.setRecipientGuid(
-                personGuid.equals(dialog.getRecipientGuid())
-                    ? dialog.getPersonGuid()
-                    : personGuid
-        );
+        message.setDialogGuid(dialog.getDialogGuid());
+        message.setSenderGuid(dialog.getPersonGuid());
+        message.setRecipientGuid(dialog.getRecipientGuid());
         return message;
     }
 }

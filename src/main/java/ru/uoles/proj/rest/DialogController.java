@@ -37,30 +37,26 @@ public class DialogController {
     }
 
     @GetMapping("/dialog/open")
-    public String getDialog(@RequestParam("guid") String guid, final Model model) {
-        Dialog dialog = dialogService.getDialog(guid);
-        String personGuid = getAuthPersonGUID();
+    public String getDialog(@RequestParam("guid") String recipientGuid, final Model model) {
+        Dialog dialog = dialogService.getDialog(getAuthPersonGUID(), recipientGuid);
 
         model.addAttribute("dialog", dialog);
-        model.addAttribute("message", getNewMessageTemplate(dialog, personGuid));
-        model.addAttribute("personGuid", personGuid);
+        model.addAttribute("message", getNewMessageTemplate(dialog));
         return "dialog";
     }
 
     @GetMapping("/dialog/create")
     public String createDialog(@RequestParam("guid") String recipientGuid, final Model model) {
-        String personGuid = getAuthPersonGUID();
-        Dialog dialog = dialogService.addDialog(personGuid, recipientGuid);
+        Dialog dialog = dialogService.addDialog(getAuthPersonGUID(), recipientGuid);
 
         model.addAttribute("dialog", dialog);
-        model.addAttribute("message", getNewMessageTemplate(dialog, personGuid));
-        model.addAttribute("personGuid", personGuid);
+        model.addAttribute("message", getNewMessageTemplate(dialog));
         return "dialog";
     }
 
     @PostMapping("/dialog/add/message")
     public String addMessage(@ModelAttribute Message message) {
         dialogService.addMessage(message);
-        return String.join("", "redirect:/dialog/open?guid=", message.getDialogGuid());
+        return String.join("", "redirect:/dialog/open?guid=", message.getRecipientGuid());
     }
 }

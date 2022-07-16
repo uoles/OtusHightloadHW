@@ -4,27 +4,26 @@
     <comment>SQL requests to table DIALOGS</comment>
 
     <entry key="get.all.dialogs">
-        select d.guid, d.person_guid, d.recipient_guid, d.recipient_full_name
+        select d.guid, d.dialog_guid, d.person_guid, d.recipient_guid, d.recipient_full_name
         from DIALOGS d
-        where d.person_guid = :person_guid or d.recipient_guid = :person_guid
+        where d.person_guid = :person_guid
         limit :cnt
     </entry>
 
     <entry key="get.dialog.by.person.guids">
-        select d.guid, d.person_guid, d.recipient_guid, d.recipient_full_name
+        select d.guid, d.dialog_guid, d.person_guid, d.recipient_guid, d.recipient_full_name
         from DIALOGS d
-        where (d.person_guid = :person_guid and d.recipient_guid = :recipient_guid)
-            or (d.person_guid = :recipient_guid and d.recipient_guid = :person_guid)
+        where d.person_guid = :person_guid and d.recipient_guid = :recipient_guid
     </entry>
 
     <entry key="get.dialog.by.guid">
-        select d.guid, d.person_guid, d.recipient_guid, d.recipient_full_name
+        select d.guid, d.dialog_guid, d.person_guid, d.recipient_guid, d.recipient_full_name
         from DIALOGS d
         where d.guid = :guid
     </entry>
 
     <entry key="add.dialog">
-        insert into DIALOGS(guid, person_guid, recipient_guid, recipient_full_name)
-        values(:guid, :person_guid, :recipient_guid, :recipient_full_name)
+        insert into DIALOGS(guid, dialog_guid, person_guid, recipient_guid, recipient_full_name)
+        values(:guid, :dialog_guid, :person_guid, :recipient_guid, :recipient_full_name)
     </entry>
 </properties>

@@ -17,6 +17,8 @@ public interface DialogService<Dialog> {
 
     Dialog getDialog(final String guid);
 
+    Dialog getDialog(final String personGuid, final String recipientGuid);
+
     Dialog addDialog(final String personGuid, final String recipientGuid);
 
     void addMessage(final Message message);

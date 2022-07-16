@@ -44,14 +44,32 @@ public class DialogServiceImpl implements DialogService<Dialog> {
     }
 
     @Override
+    public Dialog getDialog(final String personGuid, final String recipientGuid) {
+        Dialog dialog = dialogDialogDao.findDialogByPersonGuids(personGuid, recipientGuid);
+        List<Message> messages = messageDao.getMessages(dialog.getDialogGuid(), 100);
+        dialog.setMessages(messages);
+        return dialog;
+    }
+
+    @Override
     public Dialog addDialog(final String personGuid, final String recipientGuid) {
         Dialog dialog = dialogDialogDao.findDialogByPersonGuids(personGuid, recipientGuid);
         if (Objects.isNull(dialog)) {
-            Person person = personDao.findByGuid(recipientGuid);
-            String recipientFullName = String.join(" ", person.getFirstName(), person.getSecondName());
+            Person recipient = personDao.findByGuid(recipientGuid);
+            String recipientFullName = String.join(" ", recipient.getFirstName(), recipient.getSecondName());
 
-            dialog = new Dialog(DatabaseHelper.getNewGUID(), personGuid, recipientGuid, recipientFullName);
+            final String dialogGuid = DatabaseHelper.getNewGUID();
+            dialog = new Dialog(DatabaseHelper.getNewGUID(), dialogGuid, personGuid, recipientGuid, recipientFullName);
             dialogDialogDao.addDialog(dialog);
+
+            Person person = personDao.findByGuid(personGuid);
+            String personFullName = String.join(" ", person.getFirstName(), person.getSecondName());
+
+            Dialog recipientDialog = new Dialog(DatabaseHelper.getNewGUID(), dialogGuid, recipientGuid, personGuid, personFullName);
+            dialogDialogDao.addDialog(recipientDialog);
+        } else {
+            List<Message> messages = messageDao.getMessages(dialog.getDialogGuid(), 100);
+            dialog.setMessages(messages);
         }
         return dialog;
     }

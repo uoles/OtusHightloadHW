@@ -17,6 +17,7 @@ import java.util.List;
 public class Dialog {
 
     private String guid;
+    private String dialogGuid;
     private String personGuid;
     private String recipientGuid;
     private String recipientFullName;
@@ -25,8 +26,9 @@ public class Dialog {
     public Dialog() {
     }
 
-    public Dialog(String guid, String personGuid, String recipientGuid, String recipientFullName) {
+    public Dialog(String guid, String dialogGuid, String personGuid, String recipientGuid, String recipientFullName) {
         this.guid = guid;
+        this.dialogGuid = dialogGuid;
         this.personGuid = personGuid;
         this.recipientGuid = recipientGuid;
         this.recipientFullName = recipientFullName;
