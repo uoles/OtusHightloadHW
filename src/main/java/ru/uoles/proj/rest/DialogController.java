@@ -4,12 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.uoles.proj.model.Dialog;
+import ru.uoles.proj.model.Message;
 import ru.uoles.proj.service.DialogService;
 
 import java.util.List;
 
+import static ru.uoles.proj.utils.DatabaseHelper.getNewMessageTemplate;
 import static ru.uoles.proj.utils.SecureHelper.getAuthPersonGUID;
 
 /**
@@ -35,14 +39,24 @@ public class DialogController {
     @GetMapping("/dialog/open")
     public String getDialog(@RequestParam("guid") String recipientGuid, final Model model) {
         Dialog dialog = dialogService.getDialog(getAuthPersonGUID(), recipientGuid);
+
         model.addAttribute("dialog", dialog);
+        model.addAttribute("message", getNewMessageTemplate(dialog));
         return "dialog";
     }
 
     @GetMapping("/dialog/create")
-    public String careteDialog(@RequestParam("guid") String recipientGuid, final Model model) {
+    public String createDialog(@RequestParam("guid") String recipientGuid, final Model model) {
         Dialog dialog = dialogService.addDialog(getAuthPersonGUID(), recipientGuid);
+
         model.addAttribute("dialog", dialog);
+        model.addAttribute("message", getNewMessageTemplate(dialog));
         return "dialog";
+    }
+
+    @PostMapping("/dialog/add/message")
+    public String addMessage(@ModelAttribute Message message) {
+        dialogService.addMessage(message);
+        return String.join("", "redirect:/dialog/open?guid=", message.getRecipientGuid());
     }
 }

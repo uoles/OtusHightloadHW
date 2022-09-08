@@ -1,5 +1,8 @@
 package ru.uoles.proj.utils;
 
+import ru.uoles.proj.model.Dialog;
+import ru.uoles.proj.model.Message;
+
 import java.util.UUID;
 
 /**
@@ -16,5 +19,14 @@ public final class DatabaseHelper {
 
     public static String getNewGUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
+    }
+
+    public static Message getNewMessageTemplate(final Dialog dialog) {
+        Message message = new Message();
+        message.setGuid(DatabaseHelper.getNewGUID());
+        message.setDialogGuid(dialog.getDialogGuid());
+        message.setSenderGuid(dialog.getPersonGuid());
+        message.setRecipientGuid(dialog.getRecipientGuid());
+        return message;
     }
 }

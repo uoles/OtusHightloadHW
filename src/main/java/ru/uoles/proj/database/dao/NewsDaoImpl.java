@@ -6,7 +6,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.uoles.proj.database.mapper.NewsMapper;
-import ru.uoles.proj.database.mapper.PersonMapper;
 import ru.uoles.proj.model.News;
 
 import java.util.HashMap;

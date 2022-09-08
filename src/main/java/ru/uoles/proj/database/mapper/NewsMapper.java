@@ -5,6 +5,7 @@ import ru.uoles.proj.model.News;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -26,7 +27,10 @@ public class NewsMapper implements RowMapper<News> {
     @Override
     public News mapRow(ResultSet rs, int rowNum) throws SQLException {
         final String guid = rs.getString(GUID);
-        final Date newsDateTime = rs.getDate(NEWS_DATE_TIME);
+
+        final Timestamp timestamp = rs.getTimestamp(NEWS_DATE_TIME);
+        final Date newsDateTime = new Date(timestamp.getTime());
+
         final String personGuid = rs.getString(PERSON_GUID);
         final String newsBody = rs.getString(NEWS_BODY);
         final String personFullName = String.join(

@@ -16,6 +16,7 @@ import java.sql.SQLException;
 public class DialogMapper implements RowMapper<Dialog> {
 
     private static final String GUID = "guid";
+    private static final String DIALOG_GUID = "dialog_guid";
     private static final String PERSON_GUID = "person_guid";
     private static final String RECIPIENT_GUID = "recipient_guid";
     private static final String RECIPIENT_FULL_NAME = "recipient_full_name";
@@ -23,10 +24,11 @@ public class DialogMapper implements RowMapper<Dialog> {
     @Override
     public Dialog mapRow(ResultSet rs, int rowNum) throws SQLException {
         final String guid = rs.getString(GUID);
+        final String dialogGuid = rs.getString(DIALOG_GUID);
         final String personGuid = rs.getString(PERSON_GUID);
         final String recipientGuid = rs.getString(RECIPIENT_GUID);
         final String recipientFullName = rs.getString(RECIPIENT_FULL_NAME);
 
-        return new Dialog(guid, personGuid, recipientGuid, recipientFullName);
+        return new Dialog(guid, dialogGuid, personGuid, recipientGuid, recipientFullName);
     }
 }
