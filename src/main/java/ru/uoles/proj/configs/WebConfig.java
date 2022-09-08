@@ -21,10 +21,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler(
                         "/webjars/**",
                         "/image/**",
+                        "/js/**",
                         "/css/**")
                 .addResourceLocations(
                         "classpath:/META-INF/resources/webjars/",
                         "classpath:/static/image/",
+                        "classpath:/static/js/",
                         "classpath:/static/css/");
     }
 }

@@ -19,4 +19,9 @@ public class MainPageController {
     public String index() {
         return "index";
     }
+
+    @GetMapping(value = {"/websocket"})
+    public String websocket() {
+        return "websocket";
+    }
 }
